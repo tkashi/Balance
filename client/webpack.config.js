@@ -1,8 +1,12 @@
 module.exports = {
     // メインのJS
-    entry: "./src/main.js",
+    entry: {
+      main: "./src/main.js",
+      subjects: './src/subjects.js'
+    },
     output: {
-      filename: "build/bundle.js"
+      filename: '[name].js',
+      path: __dirname + '/dist'
     },
     watch: true
   }
