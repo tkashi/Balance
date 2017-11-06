@@ -10,6 +10,6 @@ var options = {
     }
   }
   
-  app.use(express.static('balance-client', options));
+  app.use(express.static('client', options));
   
   app.listen(3000)
