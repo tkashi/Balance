@@ -7,8 +7,32 @@
     <title>Balance</title>
 </head>
 <body>
-    <div id="container"></div>
-    
+    <div id="container">  
+        <div id="subjects">
+            <h4>My Courses</h4>
+            <ul>
+                <li class="subject"><input type="text" class="subject_id"><span class="subject_title"></span>
+                <li class="subject"><input type="text" class="subject_id"><span class="subject_title"></span>
+                <li class="subject"><input type="text" class="subject_id"><span class="subject_title"></span>
+                <li class="subject"><input type="text" class="subject_id"><span class="subject_title"></span>
+                <li class="subject"><input type="text" class="subject_id"><span class="subject_title"></span>
+            </ul>
+            <button id="register">Register</button>
+        </div>
+        <!-- <div id="calendar">
+            <button id="authorize-button" style="display: none;">Authorize</button>
+            <button id="signout-button" style="display: none;">Sign Out</button>
+        
+            <pre id="content"></pre>
+        </div> -->
+        <div id="schedule">
+            <h4>My Schedule</h4>
+            <button id="create_schedule">Show My Schedule</button>
+            <table id="event_list"></table>
+        </div>
+    </div>
+   
+    <script src="https://apis.google.com/js/api.js"></script>
     <script src="./dist/main.js"></script>
 </body>
 </html>
