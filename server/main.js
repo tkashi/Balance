@@ -5,7 +5,7 @@ module.exports = function(app) {
     app.route('/mycourses')
         .get((req, res) => {
             dbmapper.readCourses('test', (err, item) => {
-                res.json(item.courses);
+                res.json(item ? item.courses : []);
             });
         })
         .post((req, res) => {
