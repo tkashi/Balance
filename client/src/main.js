@@ -3,121 +3,6 @@ var jQuery = require('jQuery')
     var h5 = require('../lib/h5/h5.dev.mod');
     var constants = require('./consts')
 
-    // Client ID and API key from the Developer Console
-    var CLIENT_ID = '1084756031819-4njot1fb1cg5bfl83r8tj75in968on17.apps.googleusercontent.com';
-    
-    // Array of API discovery doc URLs for APIs used by the quickstart
-    var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
-
-    // Authorization scopes required by the API; multiple scopes can be
-    // included, separated by spaces.
-    var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
-
-    var calendarController = {
-        __name: 'balance.main.CalendarController',
-
-        __ready: function() {
-            this._$authorizeButton = this.$find('#authorize-button');
-            this._$signoutButton = this.$find('#signout-button');
-            this._$content = this.$find('#content');
-      
-            /**
-             *  On load, called to load the auth2 library and API client library.
-             */
-            gapi.load('client:auth2', this.own(this._initClient));
-        },
-
-        /**
-         *  Initializes the API client library and sets up sign-in state
-         *  listeners.
-         */
-        _initClient: function() {
-            gapi.client.init({
-                discoveryDocs: DISCOVERY_DOCS,
-                clientId: CLIENT_ID,
-                scope: SCOPES
-            }).then(() => {
-                // Listen for sign-in state changes.
-                gapi.auth2.getAuthInstance().isSignedIn.listen(this.own(this._updateSigninStatus));
-        
-                // Handle the initial sign-in state.
-                this._updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-            });
-        },
-    
-        /**
-         *  Called when the signed in status changes, to update the UI
-         *  appropriately. After a sign-in, the API is called.
-         */
-        _updateSigninStatus: function(isSignedIn) {
-            if (isSignedIn) {
-                this._$authorizeButton.hide();
-                this._$signoutButton.show();
-                this._listUpcomingEvents();
-            } else {
-                this._$authorizeButton.show();
-                this._$signoutButton.hide();
-            }
-        },
-    
-        /**
-         *  Sign in the user upon button click.
-         */
-        '#authorize-button click': function(event) {
-            gapi.auth2.getAuthInstance().signIn();
-        },
-    
-        /**
-         *  Sign out the user upon button click.
-         */
-        '#signout-button click': function(event) {
-            gapi.auth2.getAuthInstance().signOut();
-        },
-    
-        /**
-         * Append a pre element to the body containing the given message
-         * as its text node. Used to display the results of the API call.
-         *
-         * @param {string} message Text to be placed in pre element.
-         */
-        _appendPre: function(message) {
-            this._$content.text(message);
-        },
-    
-        /**
-         * Print the summary and start datetime/date of the next ten events in
-         * the authorized user's calendar. If no events are found an
-         * appropriate message is printed.
-         */
-        _listUpcomingEvents: function() {
-            gapi.client.calendar.events.list({
-                'calendarId': 'primary',
-                'timeMin': (new Date()).toISOString(),
-                'showDeleted': false,
-                'singleEvents': true,
-                'maxResults': 10,
-                'orderBy': 'startTime'
-            }).then(response => {
-                var events = response.result.items;
-                this._appendPre('Upcoming events:');
-    
-                if (events.length > 0) {
-                    for (i = 0; i < events.length; i++) {
-                    var event = events[i];
-                    var when = event.start.dateTime;
-                    if (!when) {
-                        when = event.start.date;
-                    }
-                    this._appendPre(event.summary + ' (' + when + ')')
-                    }
-                } else {
-                    this._appendPre('No upcoming events found.');
-                }
-            });
-        }
-    
-    };
-
     var scheduleController = {
         __name: 'balance.main.ScheduleController',
 
@@ -135,14 +20,9 @@ var jQuery = require('jQuery')
     var mainController = {
         __name: 'balance.main.MainController',
 
-        // _calendarController: calendarController,
-
         _scheduleController: scheduleController,
 
         __meta: {
-            // _calendarController: {
-            //     rootElement: '#calendar'
-            // },
             _scheduleController: {
                 rootElement: '#schedule'
             }
