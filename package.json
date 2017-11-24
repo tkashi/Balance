@@ -17,11 +17,13 @@
   },
   "homepage": "https://github.com/tkashi/Balance#readme",
   "dependencies": {
+    "axios": "^0.17.1",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "fs": "0.0.1-security",
     "google-auth-library": "^0.11.0",
     "googleapis": "^22.2.0",
+    "jsdom": "^11.4.0",
     "mongodb": "^2.2.33",
     "readline": "^1.3.0"
   }
