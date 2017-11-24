@@ -62,7 +62,7 @@ var jQuery = require('jQuery')
                     title: $el.find('.subject_title').text()
                 }
             });
-            h5.ajax('mycourses', {
+            h5.ajax('usersubject/register', {
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(courses)
