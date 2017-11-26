@@ -1,6 +1,10 @@
 var driver = require('./driverFactory').createDriver();
 
 module.exports = {
+    find: (query, callback) => {
+        var collection = driver.db.collection('userSubject');
+        collection.find(query).toArray(callback);
+    },
     upsert: (doc, callback) => {
         var docs = Array.isArray(doc) ? doc : [doc];
         var collection = driver.db.collection('userSubject');

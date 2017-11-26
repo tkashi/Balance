@@ -58,28 +58,37 @@ function checkAndRegisterSubject(subjectId) {
 }
 
 
-module.exports = function(app, express) {
+module.exports = function(express) {
     var userSubjectRoute = express.Router();
-    app.use('/usersubject', userSubjectRoute);
 
-    userSubjectRoute.route('/register')
-        .post((req, res) => {
-            var subjects = req.body;
-            subjects.forEach((s) => {
-                s.term = '2017FA';
-                s.userId = consts.DUMMY_USER_ID
+    userSubjectRoute.route('/register').post((req, res) => {
+        var subjects = req.body;
+        subjects.forEach((s) => {
+            if (!s.subjectId) {
+                return;
+            }
 
-                checkAndRegisterSubject(s.subjectId);
-            });
+            s.term = consts.DEFAULT_CURRENT_TERM;
+            s.userId = consts.DUMMY_USER_ID;
 
-
-            dbmapper.upsert(subjects, (err, result) => {
-                res.json(result);
-            });
+            checkAndRegisterSubject(s.subjectId);
         });
-    app.get('/events', (req, res) => {
-        calendar.listEvent().then(list => {
-            res.send(list);
-        })
+
+
+        dbmapper.upsert(subjects, (err, result) => {
+            res.json(result);
+        });
     });
+
+    userSubjectRoute.route('/list').get((req, res) => {
+        var query = Object.assign({
+            userId: consts.DUMMY_USER_ID            
+        }, res.query);
+        dbmapper.find(query, (error, result) => {
+            res.json(result);
+        });
+    });    
+
+    return userSubjectRoute;
+
 };

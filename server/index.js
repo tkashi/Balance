@@ -20,6 +20,6 @@ app.use(express.static('../client', options));
 // for main pages
 var main = require('./main');
 main(app);
-require('./route/usersubject')(app, express);
+app.use('/usersubject', require('./route/usersubject')(express));
 
 app.listen(3000)

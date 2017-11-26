@@ -29,8 +29,10 @@ var jQuery = require('jQuery')
         },
 
         __ready: function(context){
-            h5.ajax('mycourses', {
-               
+            h5.ajax('usersubject/list', {
+               data: {
+                   term: constants.DEFAULT_CURRENT_TERM
+               }
             }).done((res) => {
                 var $subjects = this.$find('.subject');
                 res.forEach((item, idx) => {
