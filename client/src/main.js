@@ -1,20 +1,96 @@
 var jQuery = require('jQuery')
 (function($) {
     var h5 = require('../lib/h5/h5.dev.mod');
-    var constants = require('./consts')
+    var constants = require('./consts');
+
+     // Client ID and API key from the Developer Console
+     var CLIENT_ID = '1084756031819-4njot1fb1cg5bfl83r8tj75in968on17.apps.googleusercontent.com';
+     var API_KEY = '';
+
+     var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];     
+
+     // Authorization scopes required by the API; multiple scopes can be
+     // included, separated by spaces.
+     var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
+   
 
     var scheduleController = {
         __name: 'balance.main.ScheduleController',
 
-        '#create_schedule click': function(contex, $el) {
-            h5.ajax('events').done(res => {
-                var $ul = this.$find('#event_list');
-                $ul.empty();
-                res.forEach((item) => {
-                   $ul.append('<tr><td>' + item.summary + '</td><td>' + new Date(item.start.dateTime).toLocaleString() + '</td></tr>'); 
-                });
-            })
+      /**
+       *  On load, called to load the auth2 library and API client library.
+       */
+      __ready: function() {
+        gapi.load('client:auth2', this.own(this._initClient));
+      },
+
+      /**
+       *  Initializes the API client library and sets up sign-in state
+       *  listeners.
+       */
+      _initClient: function() {
+        gapi.client.init({
+          apiKey: API_KEY,
+          clientId: CLIENT_ID,
+          discoveryDocs: DISCOVERY_DOCS,
+          scope: SCOPES
+        }).then(res => {
+          // Listen for sign-in state changes.
+          gapi.auth2.getAuthInstance().isSignedIn.listen(this.own(this._updateSigninStatus));
+        });
+      },
+
+      /**
+       *  Called when the signed in status changes, to update the UI
+       *  appropriately. After a sign-in, the API is called.
+       */
+       _updateSigninStatus: function(isSignedIn) {
+        if (isSignedIn) {
+        //   authorizeButton.style.display = 'none';
+        //   signoutButton.style.display = 'block';
+          this._listUpcomingEvents();
+        // } else {
+        //   authorizeButton.style.display = 'block';
+        //   signoutButton.style.display = 'none';
         }
+      },
+
+      /**
+       *  Sign in the user upon button click.
+       */
+      '#create_schedule click': function(context) {
+        gapi.auth2.getAuthInstance().signIn();
+      },
+
+      /**
+       *  Sign out the user upon button click.
+       */
+      '#signout-button click': function(context) {
+        gapi.auth2.getAuthInstance().signOut();
+      },
+
+      /**
+       * Print the summary and start datetime/date of the next ten events in
+       * the authorized user's calendar. If no events are found an
+       * appropriate message is printed.
+       */
+      _listUpcomingEvents: function() {
+        gapi.client.calendar.events.list({
+          'calendarId': 'primary',
+          'timeMin': (new Date()).toISOString(),
+          'showDeleted': false,
+          'singleEvents': true,
+          'maxResults': 10,
+          'orderBy': 'startTime'
+        }).then(res =>  {
+          var events = res.result.items;
+          var $ul = this.$find('#event_list');
+          $ul.empty();
+          events.forEach((item) => {
+              $ul.append('<tr><td>' + item.summary + '</td><td>' + new Date(item.start.dateTime).toLocaleString() + '</td></tr>'); 
+          });
+        });
+      }
     };
 
     var taskController = {
