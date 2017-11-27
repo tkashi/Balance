@@ -17,14 +17,67 @@ var jQuery = require('jQuery')
         }
     };
 
+    var taskController = {
+        __name: 'balance.main.TaskController',
+
+        _formController: h5.ui.FormController,
+
+        __meta: {
+            _formController: {
+                rootElement: '#register_task'                
+            }
+        },
+
+        __ready: function(context) {
+            h5.ajax('task/list', {
+                dataType: 'json'
+            }).done(res => {
+                var $table = this.$find('#task_list');
+                var list = res;
+                list.forEach(task => {
+                    var tr = '<tr>';
+                    tr += '<td><input type="checkbox" ' + (task.type == 'completed' ? 'checked' : '') +'></td>';
+                    tr += '<td>' + task.title + '</td>';
+                    tr += '<td>' + task.dueDate + '</td>';
+                    tr += '<td>' + task.duration + '</td>';
+                    tr += '<td>' + task.subjectId + '</td>';
+                    tr += '<td>' + task.priority + '</td>';
+                    tr += '<td>' + task.urgency + '</td>';
+                    tr += '<td><button datre-delete>Delete</button></td>';
+                    tr += '</td>';
+                    $table.append(tr);
+                });
+            });
+        },
+
+        '#register_task button click': function(context, $el) {
+            context.event.preventDefault();
+            var values = this._formController.getValue();
+            h5.ajax('task/register', {
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(values)
+            }).done(res => {
+                alert('Registered a task');
+            }).fail(res => {
+                var a = 1;
+            });
+        }
+    }
+
     var mainController = {
         __name: 'balance.main.MainController',
 
         _scheduleController: scheduleController,
 
+        _taskController: taskController,
+
         __meta: {
             _scheduleController: {
                 rootElement: '#schedule'
+            },
+            _taskController: {
+                rootElement: '#task'
             }
         },
 

@@ -18,8 +18,9 @@ var options = {
 app.use(express.static('../client', options));
 
 // for main pages
-var main = require('./main');
-main(app);
+// var main = require('./main');
+// main(app);
+app.use('/task', require('./route/task')(express));
 app.use('/usersubject', require('./route/usersubject')(express));
 
 app.listen(3000)

@@ -19,6 +19,43 @@
             </ul>
             <button id="register">Register</button>
         </div>
+        <div id="task">
+            <table id="task_list">
+                <tr>
+                    <td></td>
+                    <td>Title</td>
+                    <td>Due Date</td>
+                    <td>Duration</td>
+                    <td>Subject ID</td>
+                    <td>Priority</td>
+                    <td>Urgency</td>
+                    <td></td>
+                </tr>
+            </table>
+            <form id="register_task" name="register_task">
+                <label>Title:<input name="title"></label><br>
+                <label>Due Date:<input type="date" name="dueDate"></label><br>
+                <label>Duration:<input type="number" min="0" name="duration"> hours</label><br>
+                <label>Subject ID:<input name="subjectId"></label><br>
+                <label>Priority:<select name="priority">
+                    <option></option>
+                    <option value="5">Extremely important</option>
+                    <option value="4">Very important</option>
+                    <option value="3">Neutral</option>
+                    <option value="2">Slightly important</option>
+                    <option value="1">Not at all important</option>
+                </select></label><br>
+                <label>Urgency:<select name="urgency">
+                        <option></option>
+                        <option value="5">Extremely Urgent</option>
+                        <option value="4">Very Urgent</option>
+                        <option value="3">Neutral</option>
+                        <option value="2">Slightly Urgent</option>
+                        <option value="1">Not at all Urgent</option>
+                   </select></label><br>
+                <button type="button">Submit</button>
+            </form>
+        </div>
         <!-- <div id="calendar">
             <button id="authorize-button" style="display: none;">Authorize</button>
             <button id="signout-button" style="display: none;">Sign Out</button>
