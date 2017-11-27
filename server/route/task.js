@@ -1,14 +1,19 @@
 var consts = require('../common/consts');
 var dbmapper = require('../dbmapper/taskMapper');
 
+
+
 module.exports = function(express) {
     var taskRoute = express.Router();
 
     taskRoute.route('/register').post((req, res) => {
-        var task = req.body;
-        task.userId = consts.DUMMY_USER_ID;
+        var tasks = Array.isArray(req.body) ? req.body : [req.body];
 
-        dbmapper.insert(task, (err, result) => {
+        tasks.forEach(task => {
+            task.userId = consts.DUMMY_USER_ID;           
+        });
+
+        dbmapper.insert(tasks, (err, result) => {
             res.json(result);
         });
     });
