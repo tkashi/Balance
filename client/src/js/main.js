@@ -1,6 +1,6 @@
 var jQuery = require('jQuery')
 (function($) {
-    var h5 = require('../lib/h5/h5.dev.mod');
+    var h5 = require('../../plugins/h5/h5.dev.mod');
     var constants = require('./consts');
 
      // Client ID and API key from the Developer Console
