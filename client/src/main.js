@@ -84,11 +84,25 @@ var jQuery = require('jQuery')
           'orderBy': 'startTime'
         }).then(res =>  {
           var events = res.result.items;
-          var $ul = this.$find('#event_list');
-          $ul.empty();
-          events.forEach((item) => {
-              $ul.append('<tr><td>' + item.summary + '</td><td>' + new Date(item.start.dateTime).toLocaleString() + '</td></tr>'); 
+          var tasks = events.map(event => {
+            var start = new Date(event.start.dateTime);
+            var end = new Date(event.end.dateTime);
+            return {
+                title: event.summary        ,
+                duration: end.getHours() - start.getHours(),
+                plannedStartDate: start.getHours() + ':' + start.getMinutes(),
+                plannedEndDate: end.getHours() + ':' + end.getMinutes(),
+                dueDate: start.getFullYear() + '-' + start.getMonth() + '-' + start.getDate(),
+                type: 'allocted'
+            };
           });
+          h5.ajax('task/register', {
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(tasks)
+        }).done(res => {
+            alert('Registered a task');
+        });
         });
       }
     };
@@ -114,11 +128,11 @@ var jQuery = require('jQuery')
                     var tr = '<tr>';
                     tr += '<td><input type="checkbox" ' + (task.type == 'completed' ? 'checked' : '') +'></td>';
                     tr += '<td>' + task.title + '</td>';
-                    tr += '<td>' + task.dueDate + '</td>';
+                    tr += '<td>' + task.dueDate+ '</td>';
                     tr += '<td>' + task.duration + '</td>';
-                    tr += '<td>' + task.subjectId + '</td>';
-                    tr += '<td>' + task.priority + '</td>';
-                    tr += '<td>' + task.urgency + '</td>';
+                    tr += '<td>' + (task.subjectId || '')  + '</td>';
+                    tr += '<td>' + (task.priority || '')  + '</td>';
+                    tr += '<td>' + (task.urgency || '') + '</td>';
                     tr += '<td><button datre-delete>Delete</button></td>';
                     tr += '</td>';
                     $table.append(tr);
@@ -135,8 +149,6 @@ var jQuery = require('jQuery')
                 data: JSON.stringify(values)
             }).done(res => {
                 alert('Registered a task');
-            }).fail(res => {
-                var a = 1;
             });
         }
     }

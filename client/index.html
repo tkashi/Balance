@@ -20,6 +20,7 @@
             <button id="register">Register</button>
         </div>
         <div id="task">
+            <h4>My Tasks</h4>
             <table id="task_list">
                 <tr>
                     <td></td>
@@ -32,7 +33,7 @@
                     <td></td>
                 </tr>
             </table>
-            <form id="register_task" name="register_task">
+            <form id="register_task" name="register_task" style="border: 1px solid black;">
                 <label>Title:<input name="title"></label><br>
                 <label>Due Date:<input type="date" name="dueDate"></label><br>
                 <label>Duration:<input type="number" min="0" name="duration"> hours</label><br>
@@ -53,18 +54,12 @@
                         <option value="2">Slightly Urgent</option>
                         <option value="1">Not at all Urgent</option>
                    </select></label><br>
-                <button type="button">Submit</button>
+                <button type="button">Register Task</button>
             </form>
         </div>
-        <!-- <div id="calendar">
-            <button id="authorize-button" style="display: none;">Authorize</button>
-            <button id="signout-button" style="display: none;">Sign Out</button>
-        
-            <pre id="content"></pre>
-        </div> -->
         <div id="schedule">
             <h4>My Schedule</h4>
-            <button id="create_schedule">Show My Schedule</button>
+            <button id="create_schedule">Add Tasks from Google Calendar</button>
             <button id="signout-button">Sign Out</button>
             <table id="event_list"></table>
             <pre id="content"></pre>
