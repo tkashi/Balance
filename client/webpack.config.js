@@ -1,8 +1,8 @@
 module.exports = {
     // メインのJS
     entry: {
-      main: "./src/main.js",
-      subjects: './src/subjects.js'
+      main: "./src/js/main.js",
+      subjects: './src/js/subjects.js'
     },
     output: {
       filename: '[name].js',
