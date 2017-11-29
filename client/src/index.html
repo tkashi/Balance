@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <title>Balance</title>
+    <!-- ===== Bootstrap CSS ===== -->
+    <link href="../plugins/components/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- ===== Plugin CSS ===== -->
+    <link href="../plugins/components/chartist-js/chartist.min.css" rel="stylesheet">
+    <link href="../plugins/components/chartist-plugin-tooltip-master/chartist-plugin-tooltip.css" rel="stylesheet">
+    <link href="../plugins/components/css-chart/css-chart.css" rel="stylesheet">
+    <!-- ===== Animation CSS ===== -->
+    <link href="css/animate.css" rel="stylesheet">
+    <!-- ===== Custom CSS ===== -->
+    <link href="css/style.css" rel="stylesheet">
+    <!-- ===== Color CSS ===== -->
+    <!-- <link href="css/colors/default.css" id="theme" rel="stylesheet"> -->
+</head>
+
+<body class="mini-sidebar">
+    <!-- ===== Main-Wrapper ===== -->
+    <div id="wrapper">
+        <div class="preloader">
+            <div class="cssload-speeding-wheel"></div>
+        </div>
+        <!-- ===== Top-Navigation ===== -->
+        <nav class="navbar navbar-default navbar-static-top m-b-0">
+            <div class="navbar-header">
+                <a class="navbar-toggle font-20 hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <div class="top-left-part">
+                    <a class="logo" href="index.html">
+                        <b>
+                            <img src="images/logowhite.png" alt="home" />
+                        </b>
+                        <span>
+                            <img src="images/logo-text.png" alt="homepage" class="dark-logo" />
+                        </span>
+                    </a>
+                </div>
+                <ul class="nav navbar-top-links navbar-left hidden-xs">
+                    <li>
+                     <!-- ===== Collapse Left Side Bar ===== -->
+                        <a href="javascript:void(0)" class="sidebartoggler font-20 waves-effect waves-light"><i class="icon-arrow-left-circle"></i></a>
+                    </li>
+                     <!-- ===== Search Option Here===== -->
+                    
+                </ul>
+
+                 <!-- ===== Messages Here Here===== -->
+                  <!-- ===== Calendar Task Here ===== -->
+                <ul class="nav navbar-top-links navbar-right pull-right">
+                    
+                    <li class="dropdown">
+                        <a class="dropdown-toggle waves-effect waves-light font-20" data-toggle="dropdown" href="javascript:void(0);">
+                            <i class="icon-calender"></i>
+                            <span class="badge badge-xs badge-danger">3</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-tasks animated slideInUp">
+                            <li>
+                                <a href="javascript:void(0);">
+                                    <div>
+                                        <p>
+                                            <strong>Task 1</strong>
+                                            <span class="pull-right text-muted">40% Complete</span>
+                                        </p>
+                                        <div class="progress progress-striped active">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                                <span class="sr-only">40% Complete (success)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="javascript:void(0);">
+                                    <div>
+                                        <p>
+                                            <strong>Task 2</strong>
+                                            <span class="pull-right text-muted">20% Complete</span>
+                                        </p>
+                                        <div class="progress progress-striped active">
+                                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                                <span class="sr-only">20% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="javascript:void(0);">
+                                    <div>
+                                        <p>
+                                            <strong>Task 3</strong>
+                                            <span class="pull-right text-muted">60% Complete</span>
+                                        </p>
+                                        <div class="progress progress-striped active">
+                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                                <span class="sr-only">60% Complete (warning)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="javascript:void(0);">
+                                    <div>
+                                        <p>
+                                            <strong>Task 4</strong>
+                                            <span class="pull-right text-muted">80% Complete</span>
+                                        </p>
+                                        <div class="progress progress-striped active">
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                                <span class="sr-only">80% Complete (danger)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a class="text-center" href="javascript:void(0);">
+                                    <strong>See All Tasks</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="right-side-toggle">
+                        <a class="right-side-toggler waves-effect waves-light b-r-0 font-20" href="javascript:void(0)">
+                            <i class="icon-settings"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- ===== Top-Navigation-End ===== -->
+        <!-- ===== Left-Sidebar ===== -->
+        <aside class="sidebar">
+            <div class="scroll-sidebar">
+                <div class="user-profile">
+                    <div class="dropdown user-pro-body">
+                        <div class="profile-image">
+                            <img src="images/users/javier2.png" alt="user-img" class="img-circle">
+                            <a href="javascript:void(0);" class="dropdown-toggle u-dropdown text-blue" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <span class="badge badge-danger">
+                                    <i class="fa fa-angle-down"></i>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu animated flipInY">
+                                <li><a href="javascript:void(0);"><i class="fa fa-user"></i> Profile</a></li>
+                                <li><a href="javascript:void(0);"><i class="fa fa-inbox"></i> Inbox</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="javascript:void(0);"><i class="fa fa-cog"></i> Account Settings</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href=""><i class="fa fa-power-off"></i> Logout</a></li>
+                            </ul>
+                        </div>
+                        <p class="profile-text m-t-15 font-16"><a href="javascript:void(0);"> Javier Gotschlich</a></p>
+                    </div>
+                </div>
+
+                <!-- ===== MENU ===== -->
+                <nav class="sidebar-nav">
+                    <ul id="side-menu">
+                        <!-- DESKTOP -->
+                        <li>
+                            <a class="active waves-effect" href="javascript:void(0);" aria-expanded="false"><i class="icon-screen-desktop fa-fw"></i> <span class="hide-menu"> Desktop <span class="label label-rounded label-info pull-right">3</span></span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li> <a href="index.html">Today</a> </li>
+                                <li> <a href="index2.html">Week</a> </li>
+                                <li> <a href="index3.html">Summary</a> </li>
+                            </ul>
+                        </li>
+                        <!-- COURSES -->
+                        <li>
+                            <a class="waves-effect" href="javascript:void(0);" aria-expanded="false"><i class="fa fa-university"></i> <span class="hide-menu"> Courses </span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li> <a href="bcourse-detail.html">Software Architecture</a> </li>
+                                <li> <a href="bcourse-detail.html">System Dynamics</a> </li>
+                                <li> <a href="bcourse-detail.html">Leadership</a> </li>
+                            </ul>
+                        </li>
+                        <!-- TASKS -->
+                        <li>
+                            <a class="waves-effect" href="javascript:void(0);" aria-expanded="false"><i class="fa fa-tasks"></i> <span class="hide-menu">  Tasks</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="bi-task.html">Incoming Tasks</a></li>
+                                <li><a href="ba-task.html">Allocated Tasks</a></li>
+                                <li><a href="bc-task.html">Completed Tasks</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="calendar.html" aria-expanded="false"><i class="icon-calender fa-fw"></i> <span class="hide-menu">Calendar</span></a>
+                        </li>
+                        <!-- ANALITICS -->
+                        <li>
+                            <a class="waves-effect" href="javascript:void(0);" aria-expanded="false"><i class="icon-pie-chart fa-fw"></i> <span class="hide-menu"> Analytics</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="bperformance.html">Performance</a></li>
+                                
+                            </ul>
+                        </li>
+                        <!-- CONFIGURATION -->
+                        <li>
+                            <a href="widgets.html" aria-expanded="false"><i class="icon-settings fa-fw"></i> <span class="hide-menu"> Configuration </span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="baccount-config.html">Account</a></li>
+                                <li> <a href="bcourse-config.html">Course Configuration</a> </li>
+                                <li><a href="bschedule-config.html">Scheduling</a></li>
+                                
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- BUTTONS -->
+                <div class="p-30">
+                    <span class="hide-menu">
+                        <a href="javascript:void(0);" target="_blank" class="btn btn-success">Create Schedule</a>
+                        <a href="javascript:void(0);" target="_blank" class="btn btn-default m-t-15">Check Documentation</a>
+                    </span>
+                </div>                
+            </div>
+        </aside>
+        <!-- ===== Left-Sidebar-End ===== -->
+        <!-- ===== Page-Content ===== -->
+        <div class="page-wrapper">
+            <div class="row m-0">
+                
+                <!-- ===== Incoming Tasks ===== -->
+                <div class="col-md-3 col-sm-6 info-box">
+                    <div class="media">
+                        <div class="media-left">
+                            <span class="icoleaf bg-primary text-white"><i class="mdi mdi-inbox-arrow-down"></i></span>
+                        </div>
+                        <div class="media-body">
+                            <h3 class="info-count text-blue">68</h3>
+                            <p class="info-text font-12">Incoming Tasks</p>
+                            <span class="hr-line"></span>
+                            <p class="info-ot font-15">Available Time : <span class="text-blue font-semibold">15 hours</span></p>
+                            
+                        </div>
+                    </div>
+                </div>
+
+               <!-- ===== Allocated Tasks ===== -->
+                <div class="col-md-3 col-sm-6 info-box">
+                    <div class="media">
+                        <div class="media-left">
+                            <span class="icoleaf bg-primary text-white"><i class="mdi mdi-calendar-today"></i></span>
+                        </div>
+                        <div class="media-body">
+                            <h3 class="info-count text-blue">30</h3>
+                            <p class="info-text font-12">Allocated Tasks</p>
+                            <span class="hr-line"></span>
+                            <p class="info-ot font-15">Total Pending<span class="label label-rounded label-danger">13</span></p>
+                            
+                        </div>
+                    </div>
+                </div>
+            <!-- ===== Completed Tasks ===== -->
+                <div class="col-md-3 col-sm-6 info-box">
+                    <div class="media">
+                        <div class="media-left">
+                            <span class="icoleaf bg-primary text-white"><i class="mdi mdi-checkbox-marked-circle-outline"></i></span>
+                        </div>
+                        <div class="media-body">
+                            <h3 class="info-count text-blue">154</h3>
+                            <p class="info-text font-12">Task Completed</p>
+                            <span class="hr-line"></span>
+                            <p class="info-ot font-15">Week Target<span class="label label-rounded label-success">300</span></p>
+                        </div>
+                    </div>
+                </div>
+                
+               
+                <div class="col-md-3 col-sm-6 info-box b-r-0">
+                    <div class="media">
+                        <div class="media-left p-r-5">
+                            <div id="earning" class="e" data-percent="80">
+                                <div id="pending" class="p" data-percent="55"></div>
+                                <div id="booking" class="b" data-percent="50"></div>
+                            </div>
+                        </div>
+                        <div class="media-body">
+                            <h2 class="text-blue font-22 m-t-0">Report</h2>
+                            <ul class="p-0 m-b-20">
+                                <li><i class="fa fa-circle m-r-5 text-primary"></i>80% Incoming</li>
+                                <li><i class="fa fa-circle m-r-5 text-primary"></i>55% Pending</li>
+                                <li><i class="fa fa-circle m-r-5 text-info"></i>50% Allocated</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ===== Page-Container ===== -->
+            <div class="container-fluid">
+                <div class="row">
+                        <div class="col-md-8">
+                                <div class="white-box">
+                                    <div class="task-widget2">
+                                        <div class="task-image">
+                                            <img src="images/task.jpg" alt="task" class="img-responsive">
+                                            <div class="task-image-overlay"></div>
+                                            <div class="task-detail">
+                                                <h2 class="font-light text-white m-b-0">26 November</h2>
+                                                <h4 class="font-normal text-white m-t-5">Your tasks for today</h4>
+                                            </div>
+                                            <div class="task-add-btn">
+                                                <a href="javascript:void(0);" class="btn btn-success">+</a>
+                                            </div>
+                                        </div>
+                                        <div class="task-total">
+                                            <p class="font-16 m-b-0"><strong>4</strong> Tasks for <a href="javascript:void(0);" class="text-link">Javier Gotschlich</a></p>
+                                        </div>
+                                        <div class="task-list">
+                                            <ul class="list-group">
+                                               <li class="list-group-item bl-success">
+                                                    <div class="checkbox checkbox-success">
+                                                        <input id="c10" type="checkbox">
+                                                        <label for="c10">
+                                                            <span class="font-16">Check email.</span>
+                                                        </label>
+                                                        <h6 class="p-l-30 font-bold">09:00 AM</h6>
+                                                    </div>
+                                                </li> 
+                                                <li class="list-group-item bl-info">
+                                                    <div class="checkbox checkbox-success">
+                                                        <input id="c7" type="checkbox">
+                                                        <label for="c7">
+                                                            <span class="font-16">Create video por Abel, Bruce and John for <strong>Software Architecture</strong> .</span>
+                                                        </label>
+                                                        <h6 class="p-l-30 font-bold">04:00 PM</h6>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item bl-warning">
+                                                    <div class="checkbox checkbox-success">
+                                                        <input id="c8" type="checkbox" checked>
+                                                        <label for="c8">
+                                                            <span class="font-16">Read Chapter 16 for <strong>System Dynamics</strong> and prepare for lecture.</span>
+                                                        </label>
+                                                        <h6 class="p-l-30 font-bold">07:00 PM</h6>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item bl-danger">
+                                                    <div class="checkbox checkbox-success">
+                                                        <input id="c9" type="checkbox">
+                                                        <label for="c9">
+                                                            <span class="font-16">Finish 0S6 for <strong>Foundations of Systems Thinking </strong> .</span>
+                                                        </label>
+                                                        <h6 class="p-l-30 font-bold">09:0 PM</h6>
+                                                    </div>
+                                                </li>
+                                                
+                                            </ul>
+                                        </div>
+                                        <div class="task-loadmore">
+                                            <a href="javascript:void(0);" class="btn btn-default btn-outline btn-rounded">Load More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                    <div class="col-md-4 col-sm-12">
+                        <div class="white-box">
+                            <h4 class="box-title">Task Progress</h4>
+                            <div class="task-widget t-a-c">
+                                <div class="task-chart" id="sparklinedashdb"></div>
+                                <div class="task-content font-16 t-a-c">
+                                    <div class="col-sm-6 b-r">
+                                        Today Tasks
+                                        <h1 class="text-primary">05 <span class="font-16 text-muted">Tasks</span></h1>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        Pending Tasks
+                                        <h1 class="text-primary">03 <span class="font-16 text-muted">Tasks</span></h1>
+                                    </div>
+                                </div>
+                                <div class="task-assign font-16">
+                                    Assigned To
+                                    
+                                    
+
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6">
+                        <div class="white-box report-widget">
+                            <h4 class="box-title">Completed Tasks</h4>
+                            <div class="css-bar css-bar-55 css-bar-xlg css-bar-primary">
+                                <div class="data-text">
+                                    <h1 class="m-0">55<span class="icon">&#37;</span></h1>
+                                    <span class="hr-line"></span>
+                                    <div class="font-15">Finished</div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                            <a href="javascript:void(0);" class="btn btn-success">Generate Report</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- ===== Page-Container-End ===== -->
+            <footer class="footer t-a-c">
+                © 2017 Balance Team
+            </footer>
+        </div>
+        <!-- ===== Page-Content-End ===== -->
+    </div>
+    <!-- ===== Main-Wrapper-End ===== -->
+    <!-- ==============================
+        Required JS Files
+    =============================== -->
+    <!-- ===== jQuery ===== -->
+    <script src="../plugins/components/jquery/jquery.min.js"></script>
+    <!-- ===== Bootstrap JavaScript ===== -->
+    <script src="../plugins/components/bootstrap/js/bootstrap.min.js"></script>
+    <!-- ===== Slimscroll JavaScript ===== -->
+    <script src="../plugins/components/jquery.slimscroll/jquery.slimscroll.js"></script>
+    <!-- ===== Menu Plugin JavaScript ===== -->
+    <script src="../plugins/components/metisMenu/sidebarmenu.js"></script>
+    <!-- ===== Plugin JS ===== -->
+    <script src="../plugins/components/chartist-js/chartist.min.js"></script>
+    <script src="../plugins/components/chartist-plugin-tooltip-master/chartist-plugin-tooltip.min.js"></script>
+    <script src="../plugins/components/sparkline/jquery.sparkline.min.js"></script>
+    <script src="../plugins/components/sparkline/jquery.charts-sparkline.js"></script>
+    <script src="../plugins/components/knob/jquery.knob.js"></script>
+    <script src="../plugins/components/easypiechart/jquery.easypiechart.min.js"></script>
+    <script src="../plugins/components/custom-chart/chart.js"></script>
+
+    <!-- ===== Custom JavaScript ===== -->
+    <script src="js/custom.js"></script>
+    <script src="js/db1.js"></script>
+</body>
+
+</html>
