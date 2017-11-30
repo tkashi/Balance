@@ -16,12 +16,28 @@
     <link href="../plugins/components/chartist-js/chartist.min.css" rel="stylesheet">
     <link href="../plugins/components/chartist-plugin-tooltip-master/chartist-plugin-tooltip.css" rel="stylesheet">
     <link href="../plugins/components/css-chart/css-chart.css" rel="stylesheet">
+    <link href="../plugins/components/h5/h5.css" rel="stylesheet">
     <!-- ===== Animation CSS ===== -->
     <link href="css/animate.css" rel="stylesheet">
     <!-- ===== Custom CSS ===== -->
     <link href="css/style.css" rel="stylesheet">
-    <!-- ===== Color CSS ===== -->
-    <!-- <link href="css/colors/default.css" id="theme" rel="stylesheet"> -->
+
+    <script type="text/ejs" id="tasks">
+        [% for (var i = 0, len = tasks.length; i < len; i++) { %]
+            [% var task  = tasks[i]; %]
+            <li class="list-group-item bl-info">
+                <div class="checkbox checkbox-success">
+                    <input id="c7" type="checkbox">
+                    <label for="c7">
+                        <span class="font-16">
+                            [%= task.title %][% if (task.subject) { %] for <strong>[%= task.subject %]</strong>[% } %].
+                        </span>
+                    </label>
+                    <h6 class="p-l-30 font-bold">[%= task.plannedStartTime %]</h6>
+                </div>
+            </li>                          
+        [% } %]
+    </script>
 </head>
 
 <body class="mini-sidebar">
@@ -315,7 +331,7 @@
                                             <img src="images/task.jpg" alt="task" class="img-responsive">
                                             <div class="task-image-overlay"></div>
                                             <div class="task-detail">
-                                                <h2 class="font-light text-white m-b-0">26 November</h2>
+                                                <h2 class="font-light text-white m-b-0 date">26 November</h2>
                                                 <h4 class="font-normal text-white m-t-5">Your tasks for today</h4>
                                             </div>
                                             <div class="task-add-btn">
@@ -323,47 +339,10 @@
                                             </div>
                                         </div>
                                         <div class="task-total">
-                                            <p class="font-16 m-b-0"><strong>4</strong> Tasks for <a href="javascript:void(0);" class="text-link">Javier Gotschlich</a></p>
+                                            <p class="font-16 m-b-0"><strong class="task-num"></strong> Tasks for <a href="javascript:void(0);" class="text-link">Javier Gotschlich</a></p>
                                         </div>
                                         <div class="task-list">
                                             <ul class="list-group">
-                                               <li class="list-group-item bl-success">
-                                                    <div class="checkbox checkbox-success">
-                                                        <input id="c10" type="checkbox">
-                                                        <label for="c10">
-                                                            <span class="font-16">Check email.</span>
-                                                        </label>
-                                                        <h6 class="p-l-30 font-bold">09:00 AM</h6>
-                                                    </div>
-                                                </li> 
-                                                <li class="list-group-item bl-info">
-                                                    <div class="checkbox checkbox-success">
-                                                        <input id="c7" type="checkbox">
-                                                        <label for="c7">
-                                                            <span class="font-16">Create video por Abel, Bruce and John for <strong>Software Architecture</strong> .</span>
-                                                        </label>
-                                                        <h6 class="p-l-30 font-bold">04:00 PM</h6>
-                                                    </div>
-                                                </li>
-                                                <li class="list-group-item bl-warning">
-                                                    <div class="checkbox checkbox-success">
-                                                        <input id="c8" type="checkbox" checked>
-                                                        <label for="c8">
-                                                            <span class="font-16">Read Chapter 16 for <strong>System Dynamics</strong> and prepare for lecture.</span>
-                                                        </label>
-                                                        <h6 class="p-l-30 font-bold">07:00 PM</h6>
-                                                    </div>
-                                                </li>
-                                                <li class="list-group-item bl-danger">
-                                                    <div class="checkbox checkbox-success">
-                                                        <input id="c9" type="checkbox">
-                                                        <label for="c9">
-                                                            <span class="font-16">Finish 0S6 for <strong>Foundations of Systems Thinking </strong> .</span>
-                                                        </label>
-                                                        <h6 class="p-l-30 font-bold">09:0 PM</h6>
-                                                    </div>
-                                                </li>
-                                                
                                             </ul>
                                         </div>
                                         <div class="task-loadmore">
@@ -443,10 +422,12 @@
     <script src="../plugins/components/knob/jquery.knob.js"></script>
     <script src="../plugins/components/easypiechart/jquery.easypiechart.min.js"></script>
     <script src="../plugins/components/custom-chart/chart.js"></script>
-
+    <script src="../plugins/components/h5/ejs-h5mod.js"></script>
+    <script src="../plugins/components/h5/h5.dev.js"></script>
+    
     <!-- ===== Custom JavaScript ===== -->
     <script src="js/custom.js"></script>
-    <script src="js/db1.js"></script>
+    <script src="js/index.js"></script>
 </body>
 
 </html>
