@@ -57,7 +57,7 @@ public class MongoDBImporter {
                 String[] fields = null;
                 List<Document> docs = new ArrayList<>();
                 for (Row row: sheet) { // row
-                    Document doc = new Document();
+                    Document doc = new Document();                        
                     for (int j = 0; j < row.getLastCellNum(); j++) { // cell
                         Cell cell = row.getCell(j);
             
@@ -97,10 +97,14 @@ public class MongoDBImporter {
                                 
                         }
                     }
-                    docs.add(doc);
+                    if (row.getRowNum() > 0) {
+                        docs.add(doc);
+                    }
                 }
                 MongoCollection<Document> collection = database.getCollection(sheet.getSheetName());
-                collection.insertMany(docs);
+                // collection.drop(); // comment in if you want to drop table
+                collection.insertMany(docs); // if data exist, throw error 
+                System.out.println(docs.size() + " objects of the " + sheet.getSheetName() + " collection have been registered.");
             }
         } catch (Exception e) {
             e.printStackTrace();
