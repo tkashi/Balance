@@ -1,0 +1,116 @@
+import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.bson.Document;
+
+
+public class MongoDBImporter {
+
+    private static String HOST_NAME = "ec2-184-72-209-108.compute-1.amazonaws.com";
+    private static String DB_NAME = "balance";
+
+    private static MongoClient mongoClient;
+    private static MongoDatabase database;
+
+    public static void main(String[] args) throws Exception {
+        try {
+            initDB();
+            importToDB();
+        } catch (Exception e) {
+            //TODO: handle exception
+        } finally {
+            closeDB();
+        }
+    }
+
+    public static void initDB() {
+        mongoClient = new MongoClient(HOST_NAME);
+        database = mongoClient.getDatabase(DB_NAME);
+    }
+
+    public static void closeDB() {
+        mongoClient.close();
+    }
+    
+    public static void importToDB() throws Exception {
+        Workbook wb = null;
+        FileInputStream fileInput = null;
+        try {
+            fileInput = new FileInputStream("data/dummy_data.xlsx");
+            wb = new XSSFWorkbook(fileInput);
+            DataFormatter formatter = new DataFormatter();
+
+            for (int i = 0; i < wb.getNumberOfSheets(); i++) { // sheet
+                Sheet sheet = wb.getSheetAt(i);
+                String[] fields = null;
+                List<Document> docs = new ArrayList<>();
+                for (Row row: sheet) { // row
+                    Document doc = new Document();
+                    for (int j = 0; j < row.getLastCellNum(); j++) { // cell
+                        Cell cell = row.getCell(j);
+            
+                        if (cell == null) {
+                            continue;
+                        }
+
+                        if (row.getRowNum() == 0) {
+                            // first row contains the names of fields of a table (document in MongoDB)
+                            if (fields == null) {
+                                fields = new String[row.getLastCellNum()];
+                            }
+                            // get the text that appears in the cell by getting the cell value and applying any data formats (Date, 0.00, 1.23e9, $1.23, etc)
+                            String text = formatter.formatCellValue(cell);
+                            fields[j] = text;
+                            continue;
+                        }
+
+                        String field = fields[j];
+
+                        // get the value and format it yourself
+                        switch (cell.getCellType()) {
+                            case Cell.CELL_TYPE_STRING:
+                                doc.append(field, cell.getRichStringCellValue().getString());
+                                break;
+                            case Cell.CELL_TYPE_NUMERIC:
+                                if (DateUtil.isCellDateFormatted(cell)) {
+                                    doc.append(field, formatter.formatCellValue(cell));
+                                } else {
+                                    doc.append(field, (int) cell.getNumericCellValue());
+                                }
+                                break;
+                            case Cell.CELL_TYPE_BOOLEAN:
+                                doc.append(field, cell.getBooleanCellValue());
+                                break;
+                            default:
+                                
+                        }
+                    }
+                    docs.add(doc);
+                }
+                MongoCollection<Document> collection = database.getCollection(sheet.getSheetName());
+                collection.insertMany(docs);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (fileInput != null) {
+                fileInput.close();                
+            }
+            if (wb != null) {
+                // wb.close();
+            }
+        }
+    }   
+}
