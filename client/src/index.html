@@ -24,8 +24,17 @@
 
     <script type="text/ejs" id="tasks">
         [% for (var i = 0, len = tasks.length; i < len; i++) { %]
-            [% var task  = tasks[i]; %]
-            <li class="list-group-item bl-info">
+            [% var task  = tasks[i]; 
+               var itemClass = 'bl-info';
+               if (task.type == 'completed') {
+                    itemClass = 'bl-success';
+               } else if (task.urgency == 5) {
+                    itemClass = 'bl-danger';
+               } else if (task.urgency == 4) {
+                    itemClass = 'bl-warning';
+               }
+            %]
+            <li class="list-group-item [%= itemClass %]">
                 <div class="checkbox checkbox-success">
                     <input id="c7" type="checkbox">
                     <label for="c7">
@@ -256,7 +265,7 @@
             <div class="row m-0">
                 
                 <!-- ===== Incoming Tasks ===== -->
-                <div class="col-md-3 col-sm-6 info-box">
+                <div class="col-md-3 col-sm-6 info-box incoming">
                     <div class="media">
                         <div class="media-left">
                             <span class="icoleaf bg-primary text-white"><i class="mdi mdi-inbox-arrow-down"></i></span>
@@ -272,7 +281,7 @@
                 </div>
 
                <!-- ===== Allocated Tasks ===== -->
-                <div class="col-md-3 col-sm-6 info-box">
+                <div class="col-md-3 col-sm-6 info-box allocated">
                     <div class="media">
                         <div class="media-left">
                             <span class="icoleaf bg-primary text-white"><i class="mdi mdi-calendar-today"></i></span>
@@ -281,13 +290,12 @@
                             <h3 class="info-count text-blue">30</h3>
                             <p class="info-text font-12">Allocated Tasks</p>
                             <span class="hr-line"></span>
-                            <p class="info-ot font-15">Total Pending<span class="label label-rounded label-danger">13</span></p>
-                            
+                            <p class="info-ot font-15">Total Pending<span class="label label-rounded label-danger pending">13</span></p>
                         </div>
                     </div>
                 </div>
-            <!-- ===== Completed Tasks ===== -->
-                <div class="col-md-3 col-sm-6 info-box">
+                <!-- ===== Completed Tasks ===== -->
+                <div class="col-md-3 col-sm-6 info-box completed">
                     <div class="media">
                         <div class="media-left">
                             <span class="icoleaf bg-primary text-white"><i class="mdi mdi-checkbox-marked-circle-outline"></i></span>
@@ -296,7 +304,7 @@
                             <h3 class="info-count text-blue">154</h3>
                             <p class="info-text font-12">Task Completed</p>
                             <span class="hr-line"></span>
-                            <p class="info-ot font-15">Week Target<span class="label label-rounded label-success">300</span></p>
+                            <p class="info-ot font-15">Week Target<span class="label label-rounded label-success total-num"></span></p>
                         </div>
                     </div>
                 </div>
@@ -424,9 +432,6 @@
                                                 </div>
                                             </div> 
                                         </div>
-                                        <div class="task-total">
-                                            <p class="font-16 m-b-0"><strong class="task-num"></strong> Tasks for <a href="javascript:void(0);" class="text-link">Javier Gotschlich</a></p>
-                                        </div>
                                         <div class="task-list">
                                             <ul class="list-group">
                                             </ul>
@@ -446,19 +451,12 @@
                                 <div class="task-content font-16 t-a-c">
                                     <div class="col-sm-6 b-r">
                                         Today Tasks
-                                        <h1 class="text-primary">05 <span class="font-16 text-muted">Tasks</span></h1>
+                                        <h1 class="text-primary"><span class="today-task-num"></span><span class="font-16 text-muted">Tasks</span></h1>
                                     </div>
                                     <div class="col-sm-6">
-                                        Pending Tasks
-                                        <h1 class="text-primary">03 <span class="font-16 text-muted">Tasks</span></h1>
+                                        Danger Tasks
+                                        <h1 class="text-primary"><span class="danger-task-num"></span><span class="font-16 text-muted">Tasks</span></h1>
                                     </div>
-                                </div>
-                                <div class="task-assign font-16">
-                                    Assigned To
-                                    
-                                    
-
-                                
                                 </div>
                             </div>
                         </div>
@@ -467,15 +465,13 @@
                     <div class="col-md-4 col-sm-6">
                         <div class="white-box report-widget">
                             <h4 class="box-title">Completed Tasks</h4>
-                            <div class="css-bar css-bar-55 css-bar-xlg css-bar-primary">
+                            <div class="css-bar css-bar-xlg css-bar-primary">
                                 <div class="data-text">
-                                    <h1 class="m-0">55<span class="icon">&#37;</span></h1>
+                                    <h1 class="m-0"><span class="icon">&#37;</span></h1>
                                     <span class="hr-line"></span>
                                     <div class="font-15">Finished</div>
                                 </div>
                             </div>
-                            <div class="clear"></div>
-                            <a href="javascript:void(0);" class="btn btn-success">Generate Report</a>
                         </div>
                     </div>
 
@@ -504,7 +500,6 @@
     <script src="../plugins/components/chartist-js/chartist.min.js"></script>
     <script src="../plugins/components/chartist-plugin-tooltip-master/chartist-plugin-tooltip.min.js"></script>
     <script src="../plugins/components/sparkline/jquery.sparkline.min.js"></script>
-    <script src="../plugins/components/sparkline/jquery.charts-sparkline.js"></script>
     <script src="../plugins/components/knob/jquery.knob.js"></script>
     <script src="../plugins/components/easypiechart/jquery.easypiechart.min.js"></script>
     <script src="../plugins/components/custom-chart/chart.js"></script>
@@ -512,6 +507,7 @@
     <script src="../plugins/components/h5/h5.dev.js"></script>
     
     <!-- ===== Custom JavaScript ===== -->
+    <script src="js/jquery.charts-sparkline.js"></script>
     <script src="js/custom.js"></script>
     <script src="js/index.js"></script>
 </body>

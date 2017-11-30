@@ -70,6 +70,7 @@ $(function() {
         __ready: function(context) {
             this.$find('.date').text(new Date().toDateString());
             this._showTaskList();
+            this._showTaskTypeCount();
         },
 
         '.add-task click': function(context, $el) {
@@ -86,14 +87,46 @@ $(function() {
             });
         },
 
+        _showTaskTypeCount: function() {
+            h5.ajax('../task/countType', {
+                type: 'GET',
+                dataType: 'json'
+            }).done(res => {
+                var total = 0;
+                var $infoBoxes = this.$find('.info-box');
+                ['incoming', 'allocated', 'completed'].forEach(type => {
+                    $infoBoxes.filter('.' + type).find('.info-count').text(res[type]);
+                    total += res[type];
+                });
+                $infoBoxes.filter('.allocated').find('.pending').text(res.pending);
+                total += res.pending;
+                $infoBoxes.filter('.completed').find('.total-num').text(total);
+
+                this._showPercentage(res.completed, total);
+            });
+        },
+
+        _showPercentage: function(completed, total) {
+            var percentage = parseInt(completed / total);
+            this.$find('.report-widget .m-0').text(percentage);
+            this.$find('.css-bar').addClass('css-bar-' + percentage);            
+        },
+
         _showTaskList: function() {
             h5.ajax('../task/list', {
                 dataType: 'json'
             }).done(res => {
-                this.$find('.task-num').text(res.length);
+                this.$find('.today-task-num').text(('0' + res.length).slice(-2) + ' ');
                 this.view.update('.list-group', 'tasks', {
-                    tasks: res.slice(0, 5)
+                    tasks: res
                 });
+                var dangerTaskNum = 0;
+                res.forEach(task => {
+                    if (task.urgency == 5) {
+                        dangerTaskNum++;
+                    }
+                });
+                this.$find('.danger-task-num').text(('0' + dangerTaskNum).slice(-2) + ' ');
             });
         }
     }

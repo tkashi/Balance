@@ -34,6 +34,11 @@ module.exports = {
         }, callback);
     },
 
+    count: (query, callback) => {
+        var collection = driver.db.collection('task');
+        collection.count(query, callback);
+    },
+
     insert: (doc, callback) => {
         driver.db.collection('task').insert(doc, {
                 w:1,
