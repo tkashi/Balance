@@ -39,6 +39,18 @@ module.exports = {
         collection.count(query, callback);
     },
 
+    countByType: (callback) => {
+        var collection = driver.db.collection('task');
+        collection.aggregate([{
+            '$group': {
+                '_id': '$type',
+                count: {
+                    '$sum': 1
+                }
+            }
+        }], callback);
+    },
+
     insert: (doc, callback) => {
         driver.db.collection('task').insert(doc, {
                 w:1,

@@ -95,11 +95,11 @@ $(function() {
                 var total = 0;
                 var $infoBoxes = this.$find('.info-box');
                 ['incoming', 'allocated', 'completed'].forEach(type => {
-                    $infoBoxes.filter('.' + type).find('.info-count').text(res[type]);
-                    total += res[type];
+                    $infoBoxes.filter('.' + type).find('.info-count').text(res[type] || 0);
+                    total += res[type] || 0;
                 });
-                $infoBoxes.filter('.allocated').find('.pending').text(res.pending);
-                total += res.pending;
+                $infoBoxes.filter('.allocated').find('.pending').text(res.pending || 0);
+                total += res.pending || 0;
                 $infoBoxes.filter('.completed').find('.total-num').text(total);
 
                 this._showPercentage(res.completed, total);

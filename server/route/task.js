@@ -26,25 +26,31 @@ module.exports = function(express) {
     });
     
     taskRoute.route('/countType').get((req, res) => {
-        var types = req.query.types || ['incoming', 'allocated', 'pending', 'completed'];
-        var resBody = {};
+        // var types = req.query.types || ['incoming', 'allocated', 'pending', 'completed'];
 
-        var promises = [];
-        types.forEach(type => {
-            var p = new Promise((resolve, reject) => {
-                dbmapper.count({
-                    type: type
-                }, (err, count) => {
-                    resolve(count);
-                });    
+        // var promises = [];
+        // types.forEach(type => {
+        //     var p = new Promise((resolve, reject) => {
+        //         dbmapper.count({
+        //             type: type
+        //         }, (err, count) => {
+        //             resolve(count);
+        //         });    
+        //     });
+        //     promises.push(p);
+        // })
+        // Promise.all(promises).then(values => {
+        //     for (var i = 0, len = types.length; i < len; i++) {
+        //         resBody[types[i]] = values[i];
+        //     }
+        //     res.json(resBody);            
+        // });
+        dbmapper.countByType((error, result) => {
+            var resBody = {};            
+            result.forEach(item => {
+                resBody[item._id] = item.count;
             });
-            promises.push(p);
-        })
-        Promise.all(promises).then(values => {
-            for (var i = 0, len = types.length; i < len; i++) {
-                resBody[types[i]] = values[i];
-            }
-            res.json(resBody);            
+            res.json(resBody);
         });
     });
 
