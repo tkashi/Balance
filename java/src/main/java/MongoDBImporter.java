@@ -1,5 +1,7 @@
 import java.io.FileInputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.mongodb.MongoClient;
@@ -18,7 +20,7 @@ import org.bson.Document;
 
 public class MongoDBImporter {
 
-    private static String HOST_NAME = "ec2-184-72-209-108.compute-1.amazonaws.com";
+    private static String HOST_NAME = "localhost";
     private static String DB_NAME = "balance";
 
     private static MongoClient mongoClient;
@@ -79,18 +81,31 @@ public class MongoDBImporter {
                         String field = fields[j];
 
                         // get the value and format it yourself
-                        switch (cell.getCellType()) {
-                            case Cell.CELL_TYPE_STRING:
+                        switch (cell.getCellTypeEnum()) {
+                            case STRING:
                                 doc.append(field, cell.getRichStringCellValue().getString());
                                 break;
-                            case Cell.CELL_TYPE_NUMERIC:
+                            case NUMERIC:
                                 if (DateUtil.isCellDateFormatted(cell)) {
-                                    doc.append(field, formatter.formatCellValue(cell));
+                                    String strDate = formatter.formatCellValue(cell);
+                                    if (strDate.matches("[0-9]{2}:[0-9]{2}")) {
+                                        doc.append(field, strDate);
+                                        break;
+                                    }
+
+                                    SimpleDateFormat sdFormat;
+                                    if (strDate.matches("[0-9]{1,2}/[0-9]{1,2}/[0-9]{2}")) {
+                                        sdFormat = new SimpleDateFormat("MM/dd/yy");
+                                    } else {
+                                        sdFormat = new SimpleDateFormat("MM/dd/yy hh:mm");                                        
+                                    }
+                                    Date date = sdFormat.parse(strDate);
+                                    doc.append(field,  date);
                                 } else {
                                     doc.append(field, (int) cell.getNumericCellValue());
                                 }
                                 break;
-                            case Cell.CELL_TYPE_BOOLEAN:
+                            case BOOLEAN:
                                 doc.append(field, cell.getBooleanCellValue());
                                 break;
                             default:
