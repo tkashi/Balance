@@ -1,167 +1,164 @@
 <script type="text/ejs" id="detail">
-    <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="white-box">
-                        <h2 class="box-title">[%= subject.number %] [%= subject.title %]</h2>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-4 col-sm-6">
-                                <div class="white-box text-center">
-                                    <img src="images/course1.png" id="product-image" class="img-responsive">
-                                </div>
-                                
-                                <div class="clear"></div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="white-box">
+                    <h2 class="box-title">[%= subject.number %] [%= subject.title %]</h2>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6">
+                            <div class="white-box text-center">
+                                <img src="images/course1.png" id="product-image" class="img-responsive">
                             </div>
                             
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <h5 class="box-title">General Info</h5>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <tr>
-                                            <td>Professor</td>
-                                            <td>[%= subject.lecturer %]</td>
-                                        </tr>
+                            <div class="clear"></div>
+                        </div>
+                        
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <h5 class="box-title">General Info</h5>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tr>
+                                        <td>Professor</td>
+                                        <td>[%= subject.lecturer %]</td>
+                                    </tr>
+                                
+                                    <tr>
+                                        <td>Lectures</td>
+                                        <td>[%= subject.lecture.day %] [%= subject.lecture.startTime %]-[%= subject.lecture.endTime %]</td>
+                                    </tr>
                                     
-                                        <tr>
-                                            <td>Lectures</td>
-                                            <td>[%= subject.lecture.day %] [%= subject.lecture.startTime %]-[%= subject.lecture.endTime %]</td>
-                                        </tr>
-                                        
-                                        <tr>
-                                            <td>Place</td>
-                                            <td>[%= subject.lecture.place %]</td>
-                                        </tr>
-                                    </table>
-                                </div>
+                                    <tr>
+                                        <td>Place</td>
+                                        <td>[%= subject.lecture.place %]</td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="white-box">
-                        <h5 class="box-title m-b-0">Lectures </h5>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Task Name</th>
-                                        <th>Due Date</th>
-                                        <th>Duration</th>
-                                        <th>Category</th>
-                                        <th>Importancy</th>
-                                        <th>Allocate</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    [% for (var i = 0, len = Lecture.length; i < len; i++) { 
-                                        var t = Lecture[i];
-                                        var d = new Date(t.dueDateTime);
-                                        var dateStr = d.toLocaleDateString() + ' ' + d.toLocaleTimeString(); 
-                                    %]
-                                        <tr>
-                                            <td>[%= t.title %]</a></td>
-                                            <td><span class="text-muted"><i class="fa fa-clock-o"></i>[%= dateStr %]</span> </td>
-                                            <td>[%= t.duration %]</td>
-                                            <td>
-                                                <div class="label label-table label-success">Lecture</div>
-                                            </td>
-                                            <td>[%= t.importance %]</td>
-                                            <td><span class="text-muted"><i class="fa fa-calendar"></i> </span> </td>
-                                        </tr>        
-                                    [% } %]
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="white-box">
-                        <h5 class="box-title m-b-0">Assignments</h5>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Task Name</th>
-                                        <th>Date</th>
-                                        <th>Duration</th>
-                                        <th>Category</th>
-                                        <th>Urgency</th>
-                                        <th>Importancy</th>
-                                        <th>Allocate</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    [% for (var i = 0, len = Assignment.length; i < len; i++) { 
-                                        var t = Assignment[i];
-                                        var d = new Date(t.dueDateTime);
-                                        var dateStr = d.toLocaleDateString() + ' ' + d.toLocaleTimeString(); 
-                                    %]
-                                        <tr>
-                                            <td>[%= t.title %]</a></td>
-                                            <td><span class="text-muted"><i class="fa fa-clock-o"></i>[%= dateStr %]</span> </td>
-                                            <td>[%= t.duration %]</td>
-                                            <td>
-                                                <div class="label label-table label-success">Assignment</div>
-                                            </td>
-                                            <td>[%= t.urgency %]</td>
-                                            <td>[%= t.importance %]</td>
-                                            <td><span class="text-muted">[% if (t.type == 'allocated') { %]<i class="fa fa-calendar"></i>[% } %]</span> </td>
-                                        </tr>        
-                                    [% } %]
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="white-box">
-                        <h5 class="box-title m-b-0">Readings </h5>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Task Name</th>
-                                        <th>Due Date</th>
-                                        <th>Duration</th>
-                                        <th>Category</th>
-                                        <th>Urgency</th>
-                                        <th>Importancy</th>
-                                        <th>Allocate</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    [% for (var i = 0, len = Reading.length; i < len; i++) { 
-                                        var t = Reading[i];    
-                                        var d = new Date(t.dueDateTime);
-                                        var dateStr = d.toLocaleDateString() + ' ' + d.toLocaleTimeString(); 
-                                    %]
-                                        <tr>
-                                            <td>[%= t.title %]</a></td>
-                                            <td><span class="text-muted"><i class="fa fa-clock-o"></i>[%= dateStr %]</span> </td>
-                                            <td>[%= t.duration %]</td>
-                                            <td>
-                                                <div class="label label-table label-success">Reading</div>
-                                            </td>
-                                            <td>[%= t.urgency %]</td>
-                                            <td>[%= t.importance %]</td>
-                                            <td><span class="text-muted">[% if (t.type == 'allocated') { %]<i class="fa fa-calendar"></i>[% } %]</span> </td>
-                                        </tr>        
-                                    [% } %]
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-
         </div>
+        
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="white-box">
+                    <h5 class="box-title m-b-0">Lectures </h5>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Task Name</th>
+                                    <th>Due Date</th>
+                                    <th>Duration</th>
+                                    <th>Category</th>
+                                    <th>Importancy</th>
+                                    <th>Allocate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                [% for (var i = 0, len = Lecture.length; i < len; i++) { 
+                                    var t = Lecture[i];
+                                    var d = new Date(t.dueDateTime);
+                                    var dateStr = d.toLocaleDateString() + ' ' + d.toLocaleTimeString(); 
+                                %]
+                                    <tr>
+                                        <td>[%= t.title %]</a></td>
+                                        <td><span class="text-muted"><i class="fa fa-clock-o"></i>[%= dateStr %]</span> </td>
+                                        <td>[%= t.duration %]</td>
+                                        <td>
+                                            <div class="label label-table label-success">Lecture</div>
+                                        </td>
+                                        <td>[%= t.importance %]</td>
+                                        <td><span class="text-muted"><i class="fa fa-calendar"></i> </span> </td>
+                                    </tr>        
+                                [% } %]
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="white-box">
+                    <h5 class="box-title m-b-0">Assignments</h5>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Task Name</th>
+                                    <th>Date</th>
+                                    <th>Duration</th>
+                                    <th>Category</th>
+                                    <th>Urgency</th>
+                                    <th>Importancy</th>
+                                    <th>Allocate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                [% for (var i = 0, len = Assignment.length; i < len; i++) { 
+                                    var t = Assignment[i];
+                                    var d = new Date(t.dueDateTime);
+                                    var dateStr = d.toLocaleDateString() + ' ' + d.toLocaleTimeString(); 
+                                %]
+                                    <tr>
+                                        <td>[%= t.title %]</a></td>
+                                        <td><span class="text-muted"><i class="fa fa-clock-o"></i>[%= dateStr %]</span> </td>
+                                        <td>[%= t.duration %]</td>
+                                        <td>
+                                            <div class="label label-table label-success">Assignment</div>
+                                        </td>
+                                        <td>[%= t.urgency %]</td>
+                                        <td>[%= t.importance %]</td>
+                                        <td><span class="text-muted">[% if (t.type == 'allocated') { %]<i class="fa fa-calendar"></i>[% } %]</span> </td>
+                                    </tr>        
+                                [% } %]
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="white-box">
+                    <h5 class="box-title m-b-0">Readings </h5>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Task Name</th>
+                                    <th>Due Date</th>
+                                    <th>Duration</th>
+                                    <th>Category</th>
+                                    <th>Urgency</th>
+                                    <th>Importancy</th>
+                                    <th>Allocate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                [% for (var i = 0, len = Reading.length; i < len; i++) { 
+                                    var t = Reading[i];    
+                                    var d = new Date(t.dueDateTime);
+                                    var dateStr = d.toLocaleDateString() + ' ' + d.toLocaleTimeString(); 
+                                %]
+                                    <tr>
+                                        <td>[%= t.title %]</a></td>
+                                        <td><span class="text-muted"><i class="fa fa-clock-o"></i>[%= dateStr %]</span> </td>
+                                        <td>[%= t.duration %]</td>
+                                        <td>
+                                            <div class="label label-table label-success">Reading</div>
+                                        </td>
+                                        <td>[%= t.urgency %]</td>
+                                        <td>[%= t.importance %]</td>
+                                        <td><span class="text-muted">[% if (t.type == 'allocated') { %]<i class="fa fa-calendar"></i>[% } %]</span> </td>
+                                    </tr>        
+                                [% } %]
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </script>
