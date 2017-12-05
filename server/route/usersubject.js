@@ -18,20 +18,12 @@ module.exports = function(express) {
     var userSubjectRoute = express.Router();
 
     userSubjectRoute.route('/register').post((req, res) => {
-        var subjects = req.body;
-        subjects.forEach((s) => {
-            if (!s.subjectId) {
-                return;
-            }
+        var s = req.body;
+        s.userId = consts.DUMMY_USER_ID;
 
-            s.term = consts.DEFAULT_CURRENT_TERM;
-            s.userId = consts.DUMMY_USER_ID;
+        // checkAndRegisterSubject(s.number, s.term);
 
-            checkAndRegisterSubject(s.subjectId, s.term);
-        });
-
-
-        dbmapper.upsert(subjects, (err, result) => {
+        dbmapper.upsert(s, (err, result) => {
             res.json(result);
         });
     });

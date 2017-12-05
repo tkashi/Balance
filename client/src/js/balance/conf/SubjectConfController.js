@@ -3,6 +3,14 @@
 
     var consts = balance.common.consts;
 
+    var DAYS = ['M', 'T', 'W', 'R', 'F'];
+
+    function convetDaysToValues(day) {
+        return DAYS.map(D => {
+            return day.indexOf(D) > -1;
+        });
+    }
+
     var subjectConfController = {
         __name: 'balance.conf.SubjectConfController',
 
@@ -17,15 +25,14 @@
         __templates: ['../ejs/course-conf.ejs'],
 
         __ready: function(context) {
-            h5.ajax('../usersubject/list', {
-                data: {
-                    term: consts.DEFAULT_CURRENT_TERM
-                }
-            }).done((res) => {
-                res.forEach(subject => {
-                    this._appendSubject(subject);   
-                });
-            });
+            this._loadSubjectList();
+        },
+
+        '.add-btn click': function() {
+            if (this._isUpdatedPushed) {
+                this._formController.clearValue();
+            }
+            this.$find('.add-subject').text('Add Subject');      
         },
 
         '.search click': function() {
@@ -55,13 +62,83 @@
         '.logistics .dropdown-menu li click': function(context, $el) {
             $el.siblings().removeClass('active');
             var index = $el.index();
-            this._setLogistics(this._recitations[index], this.$find('#recitation'));
+            this._setLogistics(this._recitations[index], 'recitation', this.$find('#recitation'));
         },
 
-        '.add-subject click': function() {
-            var values = this._formController.getValues();
-            
+        '.add-subject click': function(context, $el) {
+            var values = this._formController.getValue();
 
+            var subject = {
+                number: values.number,
+                term: values.term,
+                title: values.title,
+                lecturer: values.lecturer,
+                lecture: {
+                    day: values.lectureDay.join(''),
+                    startTime: values.lectureStartTime,
+                    endTime: values.lectureEndTime,
+                    place: values.lecturePlace
+                }
+            };
+
+            if (values.recitationDay && values.recitationDay.length) {
+                subject.recitation = {
+                    day: values.recitationDay.length == 1 ? values.recitationDay : values.recitationDay.join(''),
+                    startTime: values.recitationStartTime,
+                    endTime: values.recitationEndTime,
+                    place: values.recitationPlace
+                };
+            }
+
+            h5.ajax('../usersubject/register', {
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(subject)
+            }).done((res) => {
+                this._loadSubjectList();
+                alert('Registered.');
+                this.$find('#subject-modal').modal('hide');
+
+            });
+        },
+
+        '[data-original-title="Edit"] click': function(context, $el) {
+            this._isUpdatedPushed = true;
+            var index = $el.closest('tr').index();
+            var subject = this._subjects[index];
+            this._formController.setValue({
+                number: subject.number,
+                term: subject.term,
+                title: subject.title,
+                lecturer: subject.lecturer,
+                lectureDay: convetDaysToValues(subject.lecture.day),
+                lectureStartTime: subject.lecture.startTime,
+                lectureEndTime: subject.lecture.endTime,
+                lecturePlace: subject.lecture.place
+            });
+
+            if (subject.recitation) {
+                this._formController.setValue({
+                    recitationDay: convetDaysToValues(subject.recitation.day),
+                    recitationStartTime: subject.recitation.startTime,
+                    recitationEndTime: subject.recitation.endTime,
+                    recitationPlace: subject.recitation.place    
+                });
+            }
+            this.$find('.add-subject').text('Update Subject');
+        },
+
+        _loadSubjectList: function() {
+            h5.ajax('../usersubject/list', {
+                data: {
+                    term: consts.DEFAULT_CURRENT_TERM
+                }
+            }).done((res) => {
+                res.forEach(subject => {
+                    this._appendSubject(subject);   
+                });
+                this._subjects = res;
+            });
         },
 
         _appendSubject: function(subject) {
@@ -72,7 +149,7 @@
 
         _setLogisticsTab: function(type, list) {
             this['_' + type + 's'] = list;
-            this._setLogistics(list[0], this.$find('#' + type));
+            this._setLogistics(list[0], type, this.$find('#' + type));
             
             var length = list.length;
             if (length > 1) {
@@ -91,16 +168,16 @@
             }
         },
 
-        _setLogistics: function(logistics, $form) {
-            var $checks = $form.find('[name=day]');
+        _setLogistics: function(logistics, type, $form) {
+            var $checks = $form.find('[name=' + type +'Day]');
             $checks.prop('checked', false);
             var days = logistics.day.split('');
             for (var i = 0, len = days.length; i < len; i++) {
                 $checks.filter('[value=' + days[i] + ']').prop('checked', true);
             }
-            $form.find('[name=startTime]').val(logistics.startTime);
-            $form.find('[name=endTime]').val(logistics.endTime);    
-            $form.find('[name=place]').val(logistics.place);    
+            $form.find('[name=' + type + 'StartTime]').val(logistics.startTime);
+            $form.find('[name=' + type + 'EndTime]').val(logistics.endTime);    
+            $form.find('[name=' + type + 'Place]').val(logistics.place);    
         },
 
     };

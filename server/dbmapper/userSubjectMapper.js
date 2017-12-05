@@ -5,31 +5,29 @@ module.exports = {
         var collection = driver.db.collection('userSubject');
         collection.find(query).toArray(callback);
     },
-    upsert: (doc, callback) => {
-        var docs = Array.isArray(doc) ? doc : [doc];
+
+    upsert: (d, callback) => {
         var collection = driver.db.collection('userSubject');
 
-        docs.forEach((d) => {
-            collection.findOne({
-                userId: d.userId,
-                subjectId: d.subjectId,
-                term: d.term
-            }, (error, result) => {
-                if (!result) {
-                    collection.insert(d, {
-                        forceServerObjectId: true,
-                        w: 1
-                    });
-                } else {
-                    collection.update({
-                        userId: d.userId,
-                        subjectId: d.subjectId,
-                        term: d.term
-                    }, d, {
-                        w: 1
-                    });
-                }
-            });
+        collection.findOne({
+            userId: d.userId,
+            subjectId: d.subjectId,
+            term: d.term
+        }, (error, result) => {
+            if (!result) {
+                collection.insert(d, {
+                    forceServerObjectId: true,
+                    w: 1
+                }, callback);
+            } else {
+                collection.update({
+                    userId: d.userId,
+                    subjectId: d.subjectId,
+                    term: d.term
+                }, d, {
+                    w: 1
+                }, callback);
+            }
         });
     }
 };
