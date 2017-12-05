@@ -11,7 +11,7 @@ module.exports = {
 
         collection.findOne({
             userId: d.userId,
-            subjectId: d.subjectId,
+            number: d.number,
             term: d.term
         }, (error, result) => {
             if (!result) {

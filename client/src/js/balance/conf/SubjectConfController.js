@@ -98,7 +98,7 @@
                 this._loadSubjectList();
                 alert('Registered.');
                 this.$find('#subject-modal').modal('hide');
-
+                this.trigger('updateSubjects');
             });
         },
 
@@ -134,6 +134,7 @@
                     term: consts.DEFAULT_CURRENT_TERM
                 }
             }).done((res) => {
+                this.$find('tbody').empty();
                 res.forEach(subject => {
                     this._appendSubject(subject);   
                 });
