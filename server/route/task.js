@@ -26,27 +26,29 @@ module.exports = function(express) {
     });
     
     taskRoute.route('/countType').get((req, res) => {
-        // var types = req.query.types || ['incoming', 'allocated', 'pending', 'completed'];
-
-        // var promises = [];
-        // types.forEach(type => {
-        //     var p = new Promise((resolve, reject) => {
-        //         dbmapper.count({
-        //             type: type
-        //         }, (err, count) => {
-        //             resolve(count);
-        //         });    
-        //     });
-        //     promises.push(p);
-        // })
-        // Promise.all(promises).then(values => {
-        //     for (var i = 0, len = types.length; i < len; i++) {
-        //         resBody[types[i]] = values[i];
-        //     }
-        //     res.json(resBody);            
-        // });
         dbmapper.countByType((error, result) => {
             var resBody = {};            
+            result.forEach(item => {
+                resBody[item._id] = item.count;
+            });
+            res.json(resBody);
+        });
+    });
+
+    taskRoute.route('/countByTypeAndDate').get((req, res) => {
+        var dates = [];
+        for (var i = -7; i < 7; i++) {
+            var d = new Date();
+            d.setDate(d.getDate() + i);
+            dates.push(d.getFullYear() + '-' + d.getMonth().padStart() + '-' + d.getDate());
+        }
+
+        dbmapper.countByTypeAndDate({
+            startDate: {
+                '$in': dates
+            }
+        }, (error, result) => {
+            var resBody = {};      
             result.forEach(item => {
                 resBody[item._id] = item.count;
             });

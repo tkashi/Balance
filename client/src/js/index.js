@@ -1,4 +1,4 @@
-$(function() {
+(function() {
     "use strict";
 
     /* ===== Knob chart initialization ===== */
@@ -56,8 +56,31 @@ $(function() {
         animate: { duration: 2e3, enabled: !0 }
     });
 
+    h5.settings.scene.autoInit = true;
+    h5.settings.scene.urlHistoryMode = h5.scene.urlHistoryMode.HASH; // comment in during development
+    h5.settings.res.baseUrl = 'js/';
+
+    var pageController = {
+        __name: 'balance.PageController',
+
+        _mainSceneContainer: null,
+
+        __ready: function() {
+            this._mainSceneContainer = h5.scene.getMainSceneContainer();
+        },
+
+        '#side-menu a[href] click': function(context, $el) {
+            context.event.preventDefault();
+            this._mainSceneContainer.navigate($el.attr('href'));
+        }
+    };
+
+    $(function() {
+        h5.core.controller(document.body, pageController);
+    });
+
     var taskController = {
-        __name: 'balance.desktop.TaskController',
+        __name: 'balance.overview.TaskController',
 
         _formController: h5.ui.FormController,
 
@@ -129,9 +152,11 @@ $(function() {
                 this.$find('.danger-task-num').text(('0' + dangerTaskNum).slice(-2) + ' ');
             });
         }
-    }
+    };
 
-    $(function() {
-        h5.core.controller('.page-wrapper', taskController);
-    });
-});
+    h5.core.expose(taskController);
+
+    // $(function() {
+    //     h5.core.controller('.page-wrapper', taskController);
+    // });
+})();

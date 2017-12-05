@@ -1,16 +1,26 @@
-var driver = require('./driverFactory').createDriver();
+var driver = require('./driverFactory').createDriver('subject');
 
 module.exports = {
     findById: (id, callback) => {
         var collection = driver.db.collection('subject');
         collection.findOne({
-            id: id
+            _id: id
+        }, callback);
+    },
+
+    findByNumberAndTerm: (number, term, callback) => {
+        var collection = driver.db.collection('subject');
+        collection.findOne({
+            number: number,
+            term: term
         }, callback);
     },
 
     insert: (doc, callback) => {
-        driver.db.collection('subject').insert(doc, {
-                w:1
+        var collection = driver.db.collection('subject');
+        collection.insert(doc, {
+            forceServerObjectId: true,
+            w:1
             }, callback);
     }
 };
