@@ -25334,7 +25334,7 @@ var h5internal = {
 				// radio, checkboxの場合
 				if ((this.type === 'radio' || this.type === 'checkbox')) {
 					if ($.isArray(value)) {
-						indexMap[name] = indexMap[name] ? indexMap[name] + 1 : 0;
+						indexMap[name] = indexMap[name] !=  null ? indexMap[name] + 1 : 0;
 						value = value[indexMap[name]];
 					}
 					$(this).prop('checked', value);
