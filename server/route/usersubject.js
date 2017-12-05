@@ -35,7 +35,13 @@ module.exports = function(express) {
         dbmapper.find(query, (error, result) => {
             res.json(result);
         });
-    });    
+    });
+    
+    userSubjectRoute.route('/:id').get((req, res) => {
+        dbmapper.findById(req.params.id, (error, result) => {
+            res.json(result);
+        });
+    }); 
 
     return userSubjectRoute;
 
