@@ -60,6 +60,8 @@
     h5.settings.scene.urlHistoryMode = h5.scene.urlHistoryMode.HASH; // comment in during development
     h5.settings.res.baseUrl = 'js/';
 
+    var consts = balance.common.consts;
+    
     var pageController = {
         __name: 'balance.PageController',
 
@@ -67,11 +69,36 @@
 
         __ready: function() {
             this._mainSceneContainer = h5.scene.getMainSceneContainer();
+            this._updateSubjectMenu();
         },
 
         '#side-menu a[href] click': function(context, $el) {
             context.event.preventDefault();
             this._mainSceneContainer.navigate($el.attr('href'));
+        },
+
+        '#page-wrapper updateSubjects': function() {
+            this._updateSubjectMenu();
+        },
+
+        '#side-menu .subjects a click': function(context, $el) {
+            context.event.preventDefault();
+            this._mainSceneContainer.navigate({
+                to: $el.attr('href'),
+                arg: $el.data('subjectId')
+            });
+        },
+
+        _updateSubjectMenu: function() {
+            h5.ajax('../usersubject/list', {
+                data: {
+                    term: consts.DEFAULT_CURRENT_TERM
+                }
+            }).done((res) => {
+                this.view.update('#side-menu .subjects', 'subjectMenu', {
+                    subjects: res
+                });
+            });
         }
     };
 

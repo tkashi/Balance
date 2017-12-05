@@ -22,6 +22,13 @@
     <!-- ===== Custom CSS ===== -->
     <link href="css/style.css" rel="stylesheet">
 
+    <script type="text/ejs" id="subjectMenu">
+        [% for (var i = 0, len = subjects.length; i < len; i++) { %]
+            [% var s = subjects[i]; %]
+            <li><a href="subject-detail.html" data-subject-id="[%= s._id %]">[%= s.title %]</a></li>
+        [% } %]
+    </script>    
+
     <script type="text/ejs" id="tasks">
         [% for (var i = 0, len = tasks.length; i < len; i++) { %]
             [% var task  = tasks[i]; 
@@ -211,7 +218,7 @@
                         <!-- COURSES -->
                         <li>
                             <a class="waves-effect" aria-expanded="false"><i class="fa fa-university"></i> <span class="hide-menu"> Courses </span></a>
-                            <ul aria-expanded="false" class="collapse">
+                            <ul aria-expanded="false" class="collapse subjects">
                                 <li> <a href="bcourse-detail.html">Software Architecture</a> </li>
                                 <li> <a href="bcourse-detail.html">System Dynamics</a> </li>
                                 <li> <a href="bcourse-detail.html">Leadership</a> </li>

@@ -1,9 +1,18 @@
 var driver = require('./driverFactory').createDriver();
+var ObjectID = require('mongodb').ObjectID;
 
 module.exports = {
     find: (query, callback) => {
         var collection = driver.db.collection('userSubject');
         collection.find(query).toArray(callback);
+    },
+
+    findById: (id, callback) => {
+        var collection = driver.db.collection('userSubject');
+        collection.findOne({
+            _id: ObjectID(id)
+        }, callback);
+
     },
 
     upsert: (d, callback) => {
