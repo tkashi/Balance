@@ -22,5 +22,8 @@ app.use(express.static('../client', options));
 // main(app);
 app.use('/task', require('./route/task')(express));
 app.use('/usersubject', require('./route/usersubject')(express));
+app.use('/subject', require('./route/subject')(express));
 
-app.listen(3000)
+console.log('server has started');
+
+app.listen(3000);

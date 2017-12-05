@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <title>Balance</title>
+    <!-- ===== Bootstrap CSS ===== -->
+    <link href="../plugins/components/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- ===== Plugin CSS ===== -->
+    <!-- ===== Animation CSS ===== -->
+    <link href="css/animate.css" rel="stylesheet">
+    <!-- ===== Custom CSS ===== -->
+    <link href="css/style.css" rel="stylesheet">
+    <!-- ===== Color CSS ===== -->
+    <link href="css/colors/default.css" id="theme" rel="stylesheet">
+</head>
+
+<body class="mini-sidebar">
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="cssload-speeding-wheel"></div>
+    </div>
+    <div id="wrapper">
+        <!-- Page Content -->        
+        <div class="page-wrapper" data-h5-main-scene-container data-h5-controller="balance.conf.SubjectConfController">
+            <div class="container-fluid">
+                <!-- /row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Course Configuration</h3>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Code</th>
+                                            <th>Name</th>
+                                            <th>Term</th>
+                                            <th>Professor</th>
+                                            <th>Active</th>
+                                            <th>Edit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1.125</td>
+                                            <td>Software Architecture</td>
+                                            <td>Fall 2017</td>
+                                            <td>John Williams</td>
+                                            <td><span class="label label-success">active</span> </td>
+                                            <td class="text-nowrap">
+                                                        <!-- Edit -->
+                                                    <a data-toggle="tooltip" data-original-title="Edit"> 
+                                                        <i class="fa fa-pencil text-inverse m-r-10" alt="default" data-toggle="modal" data-target="#edit-modal"></i> 
+                                                    </a>
+                                                        <!-- Elim -->
+                                                    <a data-toggle="tooltip" data-original-title="Close"> 
+                                                        <i class="fa fa-close text-danger" alt="default" data-toggle="modal" data-target="#elim-modal"></i> 
+                                                    </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>15.871</td>
+                                            <td>System Dynamics</td>
+                                            <td>Fall 2017</td>
+                                            <td>Rogelio Oliva</td>
+                                            <td><span class="label label-success">active</span> </td>
+                                            <td class="text-nowrap">
+                                                    <!-- Edit -->
+                                                    <a data-toggle="tooltip" data-original-title="Edit"> 
+                                                        <i class="fa fa-pencil text-inverse m-r-10" alt="default" data-toggle="modal" data-target="#edit-modal"></i> 
+                                                    </a>
+                                                    <!-- Elim -->
+                                                    <a data-toggle="tooltip" data-original-title="Close"> 
+                                                        <i class="fa fa-close text-danger" alt="default" data-toggle="modal" data-target="#elim-modal"></i> 
+                                                    </a>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>15.872</td>
+                                            <td>System Dynamics 2</td>
+                                            <td>Fall 2017</td>
+                                            <td>Rogelio Oliva</td>
+                                            <td><span class="label label-warning">inactive</span> </td>
+                                            <td class="text-nowrap">
+                                                    <!-- Edit -->
+                                                    <a data-toggle="tooltip" data-original-title="Edit"> 
+                                                        <i class="fa fa-pencil text-inverse m-r-10" alt="default" data-toggle="modal" data-target="#edit-modal"></i> 
+                                                    </a>
+                                                    <!-- Elim -->
+                                                    <a data-toggle="tooltip" data-original-title="Close"> 
+                                                        <i class="fa fa-close text-danger" alt="default" data-toggle="modal" data-target="#elim-modal"></i> 
+                                                    </a>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>6.928</td>
+                                            <td>Leadership</td>
+                                            <td>Fall 2017</td>
+                                            <td>David Nino</td>
+                                            <td><span class="label label-success">active</span> </td>
+                                            <td class="text-nowrap">
+                                                <!-- Edit -->
+                                                <a data-toggle="tooltip" data-original-title="Edit"> 
+                                                    <i class="fa fa-pencil text-inverse m-r-10" alt="default" data-toggle="modal" data-target="#edit-modal"></i> 
+                                                </a>
+                                                <!-- Elim -->
+                                                <a data-toggle="tooltip" data-original-title="Close"> 
+                                                    <i class="fa fa-close text-danger" alt="default" data-toggle="modal" data-target="#elim-modal"></i> 
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- EDIT AND DELETE COURSE -->
+
+                    <!-- EDIT MODAL -->
+                    
+                    <div id="edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title">Edit course - COURSE NAME XXX </h4> 
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="control-label">Course Name:</label>
+                                            <input type="text" placeholder="COURSE NAME XXXX"class="form-control" id="recipient-name"> 
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="control-label">Course Code:</label>
+                                            <input type="text" placeholder="COURSE CODE XXX"class="form-control" id="recipient-name"> 
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="control-label">Term:</label>
+                                            <input type="text" placeholder="COURSE TERM XXX"class="form-control" id="recipient-name"> 
+                                        </div>
+                                        
+
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-info waves-effect waves-light">Edit course</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <!-- /.modal -->
+
+                    <!-- ELIMINATE MODAL -->
+                    <div id="elim-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title" id="myModalLabel">Course Elimination</h4> </div>
+                                <div class="modal-body">
+                                    <p></p>
+                                    <p>All information and progress done related to the course will be eliminated.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Eliminate</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
+                </div>
+
+                <!-- ===== BUTTONS ADD AND CREATE ===== -->
+                <div class="row">   
+                    <!-- ADD BUTTON -->
+                    <div class="col-lg-2 col-sm-4 col-xs-12"alt="default" data-toggle="modal" data-target="#responsive-modal">
+                        <button class="btn btn-block btn-info">Add</button>
+                    </div> 
+
+                    <!-- Modal for creating a course -->
+                    <div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title">Create a new subject</h4> 
+                                </div>
+                                <div class="modal-body">
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label for="subject-number" class="control-label col-sm-2">Number:</label>
+                                            <div class="col-sm-10">
+                                                <div class="input-group">
+                                                    <input type="text" placeholder="1.000"class="form-control" id="subject-number" name="number">
+                                                    <span class="input-group-addon search"><i class="icon-magnifier"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="subject-term" class="control-label col-sm-2">Term:</label>
+                                            <div class="col-sm-10">
+                                                <select class="form-control" id="subject-term" name="term">
+                                                    <option value="2017FA">2017 Fall</option>
+                                                    <option value="2018SU">2018 Summer</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="subject-title" class="control-label col-sm-2">Subject Name:</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" placeholder="System Dynamics"class="form-control" id="subject-title" name="title"> 
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="subject-lecturer" class="control-label col-sm-2">Lecturer:</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" placeholder=""class="form-control" id="subject-lecturer" name="lecturer"> 
+                                            </div>
+                                        </div>
+
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li role="presentation" class="active lecture-tab">
+                                                <a href="#lecture" aria-controls="home" role="tab" data-toggle="tab">Lecture</a>
+                                            </li>
+                                            <li role="presentation" class="dropdow lecture-tab-dropdown" style="display: none">
+                                                <a href="#" class="dropdown-toggle" id="lecture-tab-dropdonw" data-toggle="dropdown" aria-controls="lecture-contents">
+                                                    Lecture 
+                                                    <span class="caret"></span>
+                                                </a>
+                                                <ul class="dropdown-menu" aria-labelledby="lecture-tab-dropdonw" id="lecture-contents">
+                                                    <li><a href="#lecture" role="tab" data-toggle="tab">Lecture 1</a>
+                                                </ul>
+                                            </li>
+                                            <li role="presentation" class="recitation-tab">
+                                                <a href="#recitation" aria-controls="profile" role="tab" data-toggle="tab">Recitation</a>
+                                            </li>
+                                            <li role="presentation" class="dropdow recitation-tab-dropdown" style="display: none">
+                                                <a href="#" class="dropdown-toggle" id="recitation-tab-dropdown" data-toggle="dropdown" aria-controls="recitation-contents">
+                                                    Recitation 
+                                                    <span class="caret"></span>
+                                                </a>
+                                                <ul class="dropdown-menu" aria-labelledby="recitation-tab-dropdown" id="recitation-contents">
+                                                    <li><a href="#recitation" role="tab" data-toggle="tab">Recitation 1</a>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    
+                                        <!-- Tab panes -->
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane active" id="lecture">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-2">Day:</label>
+                                                    <div class="col-sm-10">
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" name="day" value="M"> Monday
+                                                        </label>
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" name="day" value="T"> Tuesday
+                                                        </label>
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" name="day" value="W"> Wednesday
+                                                        </label>
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" name="day" value="R"> Thursday
+                                                        </label>
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" name="day" value="F"> Friday
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <label class="control-label col-sm-2">Hours:</label>
+                                                    <div class="col-sm-5">
+                                                        <label class="control-label">From</label>
+                                                        <input type="time" class="form-control" name="startTime"> 
+                                                    </div>
+                                                    <div class="col-sm-5">                                                                            
+                                                        <label class="control-label">To</label>
+                                                        <input type="time" class="form-control" name="endTime"> 
+                                                    </div>
+                                                </div>                
+                                                <div class="form-group">
+                                                    <label for="subject-lecture-place" class="control-label col-sm-2">Place:</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" placeholder=""class="form-control" id="subject-lecture-place" name="place"> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane" id="recitation">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-2">Day:</label>
+                                                    <div class="col-sm-10">
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" name="day" value="M"> Monday
+                                                        </label>
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" name="day" value="T"> Tuesday
+                                                        </label>
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" name="day" value="W"> Wednesday
+                                                        </label>
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" name="day" value="R"> Thursday
+                                                        </label>
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" name="day" value="F"> Friday
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <label class="control-label col-sm-2">Hours:</label>
+                                                    <div class="col-sm-5">
+                                                        <label class="control-label">From</label>
+                                                        <input type="time" class="form-control" name="startTime"> 
+                                                    </div>
+                                                    <div class="col-sm-5">                                                                            
+                                                        <label class="control-label">To</label>
+                                                        <input type="time" class="form-control" name="endTime"> 
+                                                    </div>
+                                                </div>                                                                
+                                                <div class="form-group">
+                                                    <label for="subject-recitation-place" class="control-label col-sm-2">Place:</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" placeholder=""class="form-control" id="subject-recitation-place" name="place"> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-success waves-effect waves-light">Add Subject</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <!-- /.row -->
+                   
+                <!-- /.container-fluid -->
+                <footer class="footer t-a-c">
+                    © 2017 Balance Admin
+                </footer>
+            </div>
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- ==============================
+        Required JS Files
+    =============================== -->
+    <!-- ===== jQuery ===== -->
+    <script src="../plugins/components/jquery/jquery.min.js"></script>
+    <!-- ===== Bootstrap JavaScript ===== -->
+    <script src="../plugins/components/bootstrap/js/bootstrap.min.js"></script>
+    <!-- ===== Slimscroll JavaScript ===== -->
+    <script src="../plugins/components/jquery.slimscroll/jquery.slimscroll.js"></script>
+    <!-- ===== Wave Effects JavaScript ===== -->
+    <script src="../plugins/components/waves.js"></script>
+    <!-- ===== Custom JavaScript ===== -->
+    <script src="js/custom.js"></script>
+    <script src="js/balance/conf/SubjectConfController.js"></script>
+</body>
+
+</html>

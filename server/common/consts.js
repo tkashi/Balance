@@ -1,7 +1,9 @@
 module.exports = {
-    DUMMY_USER_ID: 'dummy_user_id',
+    DUMMY_USER_ID: 1,
 
-    DB_HOST: 'ec2-184-72-209-108.compute-1.amazonaws.com',
+    DB_HOST: 'localhost',
 
-    DEFAULT_CURRENT_TERM: '2017FA'
+    DEFAULT_CURRENT_TERM: '2017FA',
+
+    SUBJECT_CATALOG_URL: 'http://student.mit.edu/catalog/archive/fall/search.cgi?search='
 };

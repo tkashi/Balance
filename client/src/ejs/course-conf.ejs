@@ -1,0 +1,23 @@
+<script type="text/ejs" id="subjects">
+    [% for (var i = 0, len = subjects.length; i < len; i++) { 
+        var subject = subjects[i];
+    %]
+        <tr>
+            <td>[%= subject.id %]</td>
+            <td>[%= subject.title %]</td>
+            <td>[%= subject.term %]</td>
+            <td>[%= subject.lecturer %]</td>
+            <td><span class="label label-success">[%= subject.state %]</span> </td>
+            <td class="text-nowrap">
+                <!-- Edit -->
+                <a data-toggle="tooltip" data-original-title="Edit"> 
+                    <i class="fa fa-pencil text-inverse m-r-10" alt="default" data-toggle="modal" data-target="#edit-modal"></i> 
+                </a>
+                <!-- Delete -->
+                <a data-toggle="tooltip" data-original-title="Delete"> 
+                    <i class="fa fa-close text-danger" alt="default" data-toggle="modal" data-target="#delete-modal"></i> 
+                </a>
+            </td>
+        </tr>
+    [% } %]
+</script>
