@@ -46,7 +46,7 @@ function retriveAndRegisterSubject(number, term, callback) {
                 case 'i':
                     var text = node.textContent;
                     var day = text.match(/[MTWRF]{1,2}/)[0];
-                    if (day && text.indexOf('-') > 0) {
+                    if (day && text.search(/[0-9]/) > 0) {
                         if (!lectureType) {
                             break;
                         }
@@ -58,6 +58,9 @@ function retriveAndRegisterSubject(number, term, callback) {
                             hours = text.slice(indexOfOpenBracket + 1, text.indexOf(' ', indexOfOpenBracket));
                         }
                         var times = hours.split('-');
+                        if (times[1] == null) {
+                            times[1] = '' + (parseInt(times[0]) + 1);
+                        }
                         var logistics = {
                             day: day,
                             startTime: convertTime(times[0], isPM),
