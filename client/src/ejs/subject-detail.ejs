@@ -58,12 +58,10 @@
                             <tbody>
                                 [% for (var i = 0, len = Lecture.length; i < len; i++) { 
                                     var t = Lecture[i];
-                                    var d = new Date(t.dueDateTime);
-                                    var dateStr = d.toLocaleDateString() + ' ' + d.toLocaleTimeString(); 
                                 %]
                                     <tr>
                                         <td><a>[%= t.title %]</a></td>
-                                        <td><span class="text-muted"><i class="fa fa-clock-o"></i>[%= dateStr %]</span> </td>
+                                        <td><span class="text-muted"><i class="fa fa-clock-o"></i>[%= balance.common.utils.formatDueDate(t.dueDateTime) %]</span> </td>
                                         <td>[%= t.duration %]</td>
                                         <td>
                                             <div class="label label-table label-success">Lecture</div>
@@ -98,12 +96,10 @@
                             <tbody>
                                 [% for (var i = 0, len = Assignment.length; i < len; i++) { 
                                     var t = Assignment[i];
-                                    var d = new Date(t.dueDateTime);
-                                    var dateStr = d.toLocaleDateString() + ' ' + d.toLocaleTimeString(); 
                                 %]
                                     <tr>
                                         <td><a>[%= t.title %]</a></td>
-                                        <td><span class="text-muted"><i class="fa fa-clock-o"></i>[%= dateStr %]</span> </td>
+                                        <td><span class="text-muted"><i class="fa fa-clock-o"></i>[%= balance.common.utils.formatDueDate(t.dueDateTime) %]</span> </td>
                                         <td>[%= t.duration %]</td>
                                         <td>
                                             <div class="label label-table label-success">Assignment</div>
@@ -139,12 +135,10 @@
                             <tbody>
                                 [% for (var i = 0, len = Reading.length; i < len; i++) { 
                                     var t = Reading[i];    
-                                    var d = new Date(t.dueDateTime);
-                                    var dateStr = d.toLocaleDateString() + ' ' + d.toLocaleTimeString(); 
                                 %]
                                     <tr>
                                         <td><a>[%= t.title %]</a></td>
-                                        <td><span class="text-muted"><i class="fa fa-clock-o"></i>[%= dateStr %]</span> </td>
+                                        <td><span class="text-muted"><i class="fa fa-clock-o"></i>[%= balance.common.utils.formatDueDate(t.dueDateTime) %]</span> </td>
                                         <td>[%= t.duration %]</td>
                                         <td>
                                             <div class="label label-table label-success">Reading</div>

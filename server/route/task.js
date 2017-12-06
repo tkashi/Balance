@@ -19,7 +19,7 @@ module.exports = function(express) {
     taskRoute.route('/list').get((req, res) => {
         var query = Object.assign({
             userId: consts.DUMMY_USER_ID            
-        }, res.query);
+        }, req.query);
         dbmapper.find(query, (error, result) => {
             res.json(result);
         });
