@@ -74,19 +74,14 @@
 
         '#side-menu a[href] click': function(context, $el) {
             context.event.preventDefault();
-            this._mainSceneContainer.navigate($el.attr('href'));
+            this._mainSceneContainer.navigate({
+                to: $el.attr('href'),
+                args: $el.data()
+            });
         },
 
         '#page-wrapper updateSubjects': function() {
             this._updateSubjectMenu();
-        },
-
-        '#side-menu .subjects a click': function(context, $el) {
-            context.event.preventDefault();
-            this._mainSceneContainer.navigate({
-                to: $el.attr('href'),
-                arg: $el.data('subjectId')
-            });
         },
 
         _updateSubjectMenu: function() {

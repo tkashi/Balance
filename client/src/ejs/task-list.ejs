@@ -1,0 +1,174 @@
+<script type="text/ejs" id="incoming">
+    <h3 class="box-title m-b-0">Incoming tasks</h3>
+    <p class="text-muted m-b-20">List of tasks to perform. These tasks have <strong>not been allocated</strong> in your schedule yet.</p>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Task Name</th>
+                    <th>Course</th>
+                    <th>Due Date</th>
+                    <th>Duration</th>
+                    <th>Category</th>
+                    <th>Urgency</th>
+                    <th>Importancy</th>
+                    <th>Allocate</th>
+                </tr>
+            </thead>
+            <tbody>
+                [% for (var i = 0, len = tasks.length; i < len; i++) { 
+                    var t = tasks[i];
+                    var categoryLabelMap = {
+                        Lecture: 'label-success',
+                        Reading: 'label-primary',
+                        Assignment: 'label-warning'
+                    }; 
+                %]
+                    <tr>
+                        <td><a>[%= t.title %]</a></td>
+                        <td><a>[%= t.subject.title %]</a></td>
+                        <td><span class="text-muted"><i class="fa fa-clock-o"></i>[%= balance.common.utils.formatDueDate(t.dueDateTime) %]</span> </td>
+                        <td>[%= t.duration %]</td>
+                        <td>
+                            <div class="label label-table [%= categoryLabelMap[t.category] %]">[%= t.category %]</div>
+                        </td>
+                        <td>[%= t.urgency %]</td>
+                        <td>[%= t.importance %]</td>
+                        <td><span class="text-muted">[% if (t.type == 'allocated') { %]<i class="fa fa-calendar"></i>[% } %]</span> </td>
+                    </tr>
+                [% } %]
+            </tbody>
+        </table>
+    </div>
+</script>
+<script type="text/ejs" id="pending">
+    <h3 class="box-title m-b-0">Pending tasks</h3>
+    <p class="text-muted m-b-20">List of tasks that are pending.</p>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Task Name</th>
+                    <th>Course</th>
+                    <th>Due Date</th>
+                    <th>Duration</th>
+                    <th>Category</th>
+                    <th>Urgency</th>
+                    <th>Importancy</th>
+                    <th>Allocate</th>
+                </tr>
+            </thead>
+            <tbody>
+                [% for (var i = 0, len = tasks.length; i < len; i++) { 
+                    var t = tasks[i];
+                    var categoryLabelMap = {
+                        Lecture: 'label-success',
+                        Reading: 'label-primary',
+                        Assignment: 'label-warning'
+                    }; 
+                %]
+                    <tr>
+                        <td><a>[%= t.title %]</a></td>
+                        <td><a>[%= t.subject.title %]</a></td>
+                        <td><span class="text-muted"><i class="fa fa-clock-o"></i>[%= balance.common.utils.formatDueDate(t.dueDateTime) %]</span> </td>
+                        <td>[%= t.duration %]</td>
+                        <td>
+                            <div class="label label-table [%= categoryLabelMap[t.category] %]">[%= t.category %]</div>
+                        </td>
+                        <td>[%= t.urgency %]</td>
+                        <td>[%= t.importance %]</td>
+                        <td><span class="text-muted">[% if (t.type == 'allocated') { %]<i class="fa fa-calendar"></i>[% } %]</span> </td>
+                    </tr>
+                [% } %]
+            </tbody>
+        </table>
+    </div>
+</script>
+<script type="text/ejs" id="completed">
+    <h3 class="box-title m-b-0">Completed tasks</h3>
+    <p class="text-muted m-b-20">List of tasks that are already completed.</p>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Task Name</th>
+                    <th>Course</th>
+                    <th>Completion Date</th>
+                    <th>Duration</th>
+                    <th>Category</th>
+                    <th>Urgency</th>
+                    <th>Importancy</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                [% for (var i = 0, len = tasks.length; i < len; i++) { 
+                    var t = tasks[i];
+                    var categoryLabelMap = {
+                        Lecture: 'label-success',
+                        Reading: 'label-primary',
+                        Assignment: 'label-warning'
+                    }; 
+                %]
+                    <tr>
+                        <td><a>[%= t.title %]</a></td>
+                        <td><a>[%= t.subject.title %]</a></td>
+                        <td><span class="text-muted"><i class="fa fa-clock-o"></i>[%= balance.common.utils.formatDate(t.date, t.endTime) %]</span> </td>
+                        <td>[%= t.duration %]</td>
+                        <td>
+                            <div class="label label-table [%= categoryLabelMap[t.category] %]">[%= t.category %]</div>
+                        </td>
+                        <td>[%= t.urgency %]</td>
+                        <td>[%= t.importance %]</td>
+                        <td><i class="icon-check fa-fw"></i></td>
+                    </tr>
+                [% } %]
+            </tbody>
+        </table>
+    </div>
+</script>
+<script type="text/ejs" id="allocated">
+    <h3 class="box-title m-b-0">Allocated tasks</h3>
+    <p class="text-muted m-b-20">List of tasks that are already allocated in your schedule. These tasks have not been completed yet.</p>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Task Name</th>
+                    <th>Course</th>
+                    <th>Start Date</th>
+                    <th>Due Date</th>
+                    <th>Duration</th>
+                    <th>Category</th>
+                    <th>Urgency</th>
+                    <th>Importancy</th>
+                    <th>Allocate</th>
+                </tr>
+            </thead>
+            <tbody>
+                [% for (var i = 0, len = tasks.length; i < len; i++) { 
+                    var t = tasks[i];
+                    var categoryLabelMap = {
+                        Lecture: 'label-success',
+                        Reading: 'label-primary',
+                        Assignment: 'label-warning'
+                    }; 
+                %]
+                    <tr>
+                        <td><a>[%= t.title %]</a></td>
+                        <td><a>[%= t.subject.title %]</a></td>
+                        <td><span class="text-muted"><i class="fa fa-clock-o"></i>[%= balance.common.utils.formatDate(t.date, t.startTime) %]</span> </td>
+                        <td><span class="text-muted"><i class="fa fa-clock-o"></i>[%= balance.common.utils.formatDueDate(t.dueDateTime) %]</span> </td>
+                        <td>[%= t.duration %]</td>
+                        <td>
+                            <div class="label label-table [%= categoryLabelMap[t.category] %]">[%= t.category %]</div>
+                        </td>
+                        <td>[%= t.urgency %]</td>
+                        <td>[%= t.importance %]</td>
+                        <td><span class="text-muted">[% if (t.type == 'allocated') { %]<i class="fa fa-calendar"></i>[% } %]</span> </td>
+                    </tr>
+                [% } %]
+            </tbody>
+        </table>
+    </div>
+</script>

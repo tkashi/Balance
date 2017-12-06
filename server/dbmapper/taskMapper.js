@@ -3,20 +3,24 @@ var driver = require('./driverFactory').createDriver();
 module.exports = {
     find: (query, callback) => {
         var collection = driver.db.collection('task');
+        console.log(query);
         collection.find(query).toArray((error, tasks) => {
             var ids = tasks.map(item => {
                 return item.subjectId
             });
-            driver.db.collection('subject').find({
-                id: {
+            console.log(ids);
+            driver.db.collection('userSubject').find({
+                _id: {
                     '$in': ids
                 }
             }).toArray((err, subjects) => {
+                console.log(subjects);
                 tasks.forEach(task => {
                     if (task.subjectId) {
                         for (var i = 0, len = subjects.length; i < len; i++) {
-                            if (task.subjectId == subjects[i].id) {
-                                task.subject = subjects[i].title;
+                            if (subjects[i]._id.equals(task.subjectId)) {
+                                task.subject = subjects[i];
+                                console.log(task);
                                 return;
                             }
                         }

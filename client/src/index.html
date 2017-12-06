@@ -228,9 +228,10 @@
                         <li>
                             <a class="waves-effect" aria-expanded="false"><i class="fa fa-tasks fa-fw"></i> <span class="hide-menu">  Tasks</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="bi-task.html">Incoming Tasks</a></li>
-                                <li><a href="ba-task.html">Allocated Tasks</a></li>
-                                <li><a href="bc-task.html">Completed Tasks</a></li>
+                                <li><a href="task.html" data-type="incoming">Incoming Tasks</a></li>
+                                <li><a href="task.html" data-type="allocated">Allocated Tasks</a></li>
+                                <li><a href="task.html" data-type="pending">Pending Tasks</a></li>
+                                <li><a href="task.html" data-type="completed">Completed Tasks</a></li>
                             </ul>
                         </li>
                         <li>
@@ -517,6 +518,7 @@
     <!-- ===== Custom JavaScript ===== -->
     <script src="js/jquery.charts-sparkline.js"></script>
     <script src="js/consts.js"></script>
+    <script src="js/utils.js"></script>
     <script src="js/custom.js"></script>
     <script src="js/index.js"></script>
 </body>

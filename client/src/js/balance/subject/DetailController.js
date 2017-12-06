@@ -9,7 +9,7 @@
         __templates: '../ejs/subject-detail.ejs',
 
         __construct: function(context) {
-            this._id = location.hash.slice(location.hash.indexOf('_h5_arg=') + 9);         
+            this._id = context.args.subjectId;   
         },
 
         __ready: function(context) {
@@ -21,7 +21,7 @@
                     data: {
                         userSubjectId: this._id,
                         type: {
-                            '$not': 'completed'
+                            '$ne': 'completed'
                         }
                     }
             })).done((subject, tasks) => {
