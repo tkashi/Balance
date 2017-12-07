@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+.task-widget2 .row {
+    margin-left: 0;
+}
+
+.task-widget2 .col-sm-2 {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.checkbox {
+    padding-left: 0;
+}

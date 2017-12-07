@@ -21,7 +21,8 @@
     <link href="css/animate.css" rel="stylesheet">
     <!-- ===== Custom CSS ===== -->
     <link href="css/style.css" rel="stylesheet">
-
+    <link href="css/index.css" rel="stylesheet">
+    
     <script type="text/ejs" id="subjectMenu">
         [% for (var i = 0, len = subjects.length; i < len; i++) { %]
             [% var s = subjects[i]; %]
@@ -46,13 +47,108 @@
                     <input id="c7" type="checkbox">
                     <label for="c7">
                         <span class="font-16">
-                            [%= task.title %][% if (task.subject) { %] for <strong>[%= task.subject %]</strong>[% } %].
+                            [%= task.title %][% if (!isSimple && task.subject) { %] for <strong>[%= task.subject.title %]</strong>[% } %].
                         </span>
                     </label>
                     <h6 class="p-l-30 font-bold">[%= task.plannedStartTime %]</h6>
                 </div>
             </li>                          
         [% } %]
+    </script>
+
+    <script type="text/ejs" id="week-tasks">
+        <div class="col-sm-2">
+            <div class="task-total bl-info">
+                <p class="font-18 m-b-0"><strong>[%= date %]</strong> </p>
+            </div>
+            <div class="task-list">
+                <ul class="list-group"></ul>
+            </div>
+        </div>
+    </script>
+    <script type="text/ejs" id="modal-dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Add New Task</h4> 
+                </div>
+                <!-- Modal Body-->
+                <div class="modal-body">
+                    <form id="register-task">
+                        <div class="form-group">
+                            <label for="task-title" class="control-label">Task Name:</label>
+                            <input name="title" type="text" placeholder="Edit Video"class="form-control" id="task-title"> 
+                        </div>
+                        <div class="form-group">
+                            <label for="task-subject-id" class="control-label">Assign to Course:</label>
+                            <input name="subjectId" type="text" placeholder="1.125"class="form-control" id="task-subject-id"> 
+                        </div>
+                        <div class="form-group">
+                            <label for="task-duration" class="control-label">Duration:</label>
+                            <input type="number" step="0.25" placeholder="1.0" class="form-control" name="duration" id="task-duration"> 
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-4">
+                                <label class="control-label">From</label>
+                                <input type="date" class="form-control" name="startDate"> 
+                            </div>
+                            <div class="col-sm-2">                                                                
+                                <label class="control-label">&nbsp;</label>
+                                <input type="time" class="form-control" name="startTime"> 
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="control-label">To</label>
+                                <input type="date" class="form-control" name="endDate"> 
+                            </div>
+                            <div class="col-sm-2">                                                                            
+                                <label class="control-label">&nbsp;</label>
+                                <input type="time" class="form-control" name="endTime"> 
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-4">
+                                <label class="control-label" for="task-importance">Importance</label>
+                                <select class="form-control" name="importance" id="task-importance">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3" selected>3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="control-label" for="task-urgency">Urgency</label>
+                                <select class="form-control" name="urgency" id="task-urgency">
+                                    <option></option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>                                                                
+                            <div class="col-sm-4">
+                                <label class="control-label" for="task-due-date">Due Date</label>
+                                <input type="date" name="dueDate" class="form-control" id="task-due-date">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Description:</label>
+                            <textarea name="description" class="form-control"></textarea>
+                        </div>
+                    </form>
+                    <!-- /End Modal Body-->  
+                </div>
+                
+                <!-- /Modal Footer-->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success waves-effect waves-light add-task">Add Task</button>
+                </div>
+            </div>
+        </div>
     </script>
 </head>
 
@@ -211,7 +307,7 @@
                             <a class="active waves-effect" aria-expanded="false"><i class="icon-screen-desktop fa-fw"></i> <span class="hide-menu"> Desktop <span class="label label-rounded label-info pull-right">3</span></span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li> <a href="index.html">Today</a> </li>
-                                <li> <a href="index2.html">Week</a> </li>
+                                <li> <a href="week-task.html">Week</a> </li>
                                 <li> <a href="index3.html">Summary</a> </li>
                             </ul>
                         </li>
@@ -356,88 +452,6 @@
 
                                              <!-- Modal for adding a task-->
                                             <div id="new-task-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                            <h4 class="modal-title">Add New Task</h4> 
-                                                        </div>
-                                                        <!-- Modal Body-->
-                                                        <div class="modal-body">
-                                                            <form id="register-task">
-                                                                <div class="form-group">
-                                                                    <label for="task-title" class="control-label">Task Name:</label>
-                                                                    <input name="title" type="text" placeholder="Edit Video"class="form-control" id="task-title"> 
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="task-subject-id" class="control-label">Assign to Course:</label>
-                                                                    <input name="subjectId" type="text" placeholder="1.125"class="form-control" id="task-subject-id"> 
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="task-duration" class="control-label">Duration:</label>
-                                                                    <input type="number" step="0.25" placeholder="1.0" class="form-control" name="duration" id="task-duration"> 
-                                                                </div>
-                                                                <div class="row form-group">
-                                                                    <div class="col-sm-4">
-                                                                        <label class="control-label">From</label>
-                                                                        <input type="date" class="form-control" name="startDate"> 
-                                                                    </div>
-                                                                    <div class="col-sm-2">                                                                
-                                                                        <label class="control-label">&nbsp;</label>
-                                                                        <input type="time" class="form-control" name="startTime"> 
-                                                                    </div>
-                                                                    <div class="col-sm-4">
-                                                                        <label class="control-label">To</label>
-                                                                        <input type="date" class="form-control" name="endDate"> 
-                                                                    </div>
-                                                                    <div class="col-sm-2">                                                                            
-                                                                        <label class="control-label">&nbsp;</label>
-                                                                        <input type="time" class="form-control" name="endTime"> 
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row form-group">
-                                                                    <div class="col-sm-4">
-                                                                        <label class="control-label" for="task-importance">Importance</label>
-                                                                        <select class="form-control" name="importance" id="task-importance">
-                                                                            <option value="1">1</option>
-                                                                            <option value="2">2</option>
-                                                                            <option value="3" selected>3</option>
-                                                                            <option value="4">4</option>
-                                                                            <option value="5">5</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-sm-4">
-                                                                        <label class="control-label" for="task-urgency">Urgency</label>
-                                                                        <select class="form-control" name="urgency" id="task-urgency">
-                                                                            <option></option>
-                                                                            <option value="1">1</option>
-                                                                            <option value="2">2</option>
-                                                                            <option value="3">3</option>
-                                                                            <option value="4">4</option>
-                                                                            <option value="5">5</option>
-                                                                        </select>
-                                                                    </div>                                                                
-                                                                    <div class="col-sm-4">
-                                                                        <label class="control-label" for="task-due-date">Due Date</label>
-                                                                        <input type="date" name="dueDate" class="form-control" id="task-due-date">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label class="control-label">Description:</label>
-                                                                    <textarea name="description" class="form-control"></textarea>
-                                                                </div>
-                                                            </form>
-                                                           <!-- /End Modal Body-->  
-                                                        </div>
-                                                       
-                                                        <!-- /Modal Footer-->
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                                                            <button type="button" class="btn btn-success waves-effect waves-light add-task">Add Task</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div> 
                                         </div>
                                         <div class="task-list">

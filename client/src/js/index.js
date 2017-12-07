@@ -104,31 +104,39 @@
     var taskController = {
         __name: 'balance.overview.TaskController',
 
-        _formController: h5.ui.FormController,
+        _taskListController : h5.res.dependsOn('balance.overview.TaskListController'),
 
         __meta: {
-            _formController: {
-                rootElement: '#register-task'
+            _taskListController: {
+                rootElement: '.task-widget2'
             }
         },
 
         __ready: function(context) {
-            this.$find('.date').text(new Date().toDateString());
-            this._showTaskList();
             this._showTaskTypeCount();
+            this._showTaskList();
         },
 
-        '.add-task click': function(context, $el) {
-            context.event.preventDefault();
-            var values = this._formController.getValue();
-            h5.ajax('../task/register', {
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(values)
+        '.task-widget2 taskRegistered': function(context) {
+            this._showTaskList();
+        },
+
+        _showTaskList: function() {
+            h5.ajax('../task/list', {
+                dataType: 'json',
+                data: {
+                    date: new Date()
+                }
             }).done(res => {
-                alert('A task has registered');
-                this.$find('#new-task-modal').modal('hide');
-                this._showTaskList();
+                this._taskListController.showTaskList(res);
+                this.$find('.today-task-num').text(('0' + res.length).slice(-2) + ' ');
+                var dangerTaskNum = 0;
+                res.forEach(task => {
+                    if (task.urgency == 5) {
+                        dangerTaskNum++;
+                    }
+                });
+                this.$find('.danger-task-num').text(('0' + dangerTaskNum).slice(-2) + ' ');
             });
         },
 
@@ -155,24 +163,6 @@
             var percentage = parseInt(completed / total);
             this.$find('.report-widget .m-0').text(percentage);
             this.$find('.css-bar').addClass('css-bar-' + percentage);            
-        },
-
-        _showTaskList: function() {
-            h5.ajax('../task/list', {
-                dataType: 'json'
-            }).done(res => {
-                this.$find('.today-task-num').text(('0' + res.length).slice(-2) + ' ');
-                this.view.update('.list-group', 'tasks', {
-                    tasks: res
-                });
-                var dangerTaskNum = 0;
-                res.forEach(task => {
-                    if (task.urgency == 5) {
-                        dangerTaskNum++;
-                    }
-                });
-                this.$find('.danger-task-num').text(('0' + dangerTaskNum).slice(-2) + ' ');
-            });
         }
     };
 
