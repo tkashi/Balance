@@ -39,6 +39,51 @@ function getHour(time) {
     return parseInt(time.split(':')[0]);
 }
 
+function registerTask(type, s) {
+    var days = s[type].day.split('');
+    var diffOfDays = days.map(day => {
+        var diffOfDay = DAY_MAP[day] - consts.CURRENT_TERM_FROM.getDay();
+        if (diffOfDay < 0) {
+            diffOfDay += 7;
+        }
+        return diffOfDay;
+    });
+
+    diffOfDays.sort();
+
+
+    var label = type == 'lecture' ? 'Lecture' : 'Recitation';
+    var today = new Date();
+    diffOfDays.forEach((diff, index) => {
+        var date = new Date(consts.CURRENT_TERM_FROM);
+        date.setDate(date.getDate() + diff);
+
+        var count = index + 1;
+        while (date <= consts.CURRENT_TERM_TO) {
+            var dateStr = date.toISOString().split('T')[0];
+            var dueDateTime = new Date(dateStr + ' ' + s[type].endTime);
+            if (holidays.indexOf(dateStr) == -1) {
+                taskMapper.insert({
+                    userId: s.userId,
+                    userSubjectId: s._id.toHexString(),
+                    number: s.number,
+                    title: s.number + ' - ' + label +' ' + count,
+                    importance: 5,
+                    type: today <= dueDateTime ? 'allocated' : 'completed',
+                    dueDateTime: dueDateTime,
+                    startTime: s[type].startTime,
+                    endTime: s[type].endTime,
+                    duration: getHour(s[type].endTime) - getHour(s[type].startTime),
+                    date: date,
+                    category: 'Lecture'
+                });    
+            }
+            date.setDate(date.getDate() + 7);
+            count += days.length;           
+        }
+    });
+}
+
 
 module.exports = function(express) {
     var userSubjectRoute = express.Router();
@@ -54,45 +99,8 @@ module.exports = function(express) {
                 number: s.number
             }, (error, subjects) => {
                 s = subjects[0];
-                var days = s.lecture.day.split('');
-                var diffOfDays = days.map(day => {
-                    var diffOfDay = DAY_MAP[day] - consts.CURRENT_TERM_FROM.getDay();
-                    if (diffOfDay < 0) {
-                        diffOfDay += 7;
-                    }
-                    return diffOfDay;
-                });
-
-                diffOfDays.sort();
-
-                var today = new Date();
-                diffOfDays.forEach((diff, index) => {
-                    var date = new Date(consts.CURRENT_TERM_FROM);
-                    date.setDate(date.getDate() + diff);
-
-                    var count = index + 1;
-                    while (date <= consts.CURRENT_TERM_TO) {
-                        var dateStr = date.toISOString().split('T')[0];
-                        if (holidays.indexOf(dateStr) == -1) {
-                            taskMapper.insert({
-                                userId: s.userId,
-                                userSubjectId: s._id.toHexString(),
-                                number: s.number,
-                                title: s.number + ' - Lecture ' + count,
-                                importance: 5,
-                                type: today < date ? 'allocated' : 'completed',
-                                dueDateTime: new Date(dateStr + ' ' + s.lecture.endTime),
-                                startTime: s.lecture.startTime,
-                                endTime: s.lecture.endTime,
-                                duration: getHour(s.lecture.endTime) - getHour(s.lecture.startTime),
-                                date: date,
-                                category: "Lecture"
-                            });    
-                        }
-                        date.setDate(date.getDate() + 7);
-                        count += days.length;           
-                    }
-                });
+                registerTask('lecture', s);
+                registerTask('recitation', s);
                 res.json(result);
             });
         });
