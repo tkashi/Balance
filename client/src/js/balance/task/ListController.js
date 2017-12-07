@@ -22,6 +22,9 @@
                     type: this._type
                 }
             }).done(res => {
+                // res.sort((a, b) => {
+                //     return a.date > b.date ? 1 : -1;
+                // });
                 this.view.update('.white-box', this._type, {
                     tasks: res
                 });

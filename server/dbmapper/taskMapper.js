@@ -1,4 +1,5 @@
 var driver = require('./driverFactory').createDriver();
+var ObjectID = require('mongodb').ObjectID;
 
 module.exports = {
     find: (query, callback) => {
@@ -15,7 +16,7 @@ module.exports = {
         console.log(query);
         collection.find(query).toArray((error, tasks) => {
             var ids = tasks.map(item => {
-                return item.subjectId
+                return ObjectID(item.userSubjectId);
             });
             driver.db.collection('userSubject').find({
                 _id: {
@@ -23,9 +24,9 @@ module.exports = {
                 }
             }).toArray((err, subjects) => {
                 tasks.forEach(task => {
-                    if (task.subjectId) {
+                    if (task.userSubjectId) {
                         for (var i = 0, len = subjects.length; i < len; i++) {
-                            if (subjects[i]._id.equals(task.subjectId)) {
+                            if (subjects[i]._id.toHexString() == task.userSubjectId) {
                                 task.subject = subjects[i];
                                 console.log(task);
                                 return;
