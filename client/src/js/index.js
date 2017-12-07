@@ -80,7 +80,7 @@
             });
         },
 
-        '#page-wrapper updateSubjects': function() {
+        '.page-wrapper updateSubjects': function() {
             this._updateSubjectMenu();
         },
 
