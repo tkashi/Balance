@@ -21,6 +21,9 @@ module.exports = function(express) {
             userId: consts.DUMMY_USER_ID            
         }, req.query);
         dbmapper.find(query, (error, result) => {
+            result.sort((a, b) => {
+                return a.dueDateTime > b.dueDateTime ? 1 : -1;
+            });
             res.json(result);
         });
     });
