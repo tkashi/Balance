@@ -15,7 +15,7 @@ var options = {
   }
 }
 
-app.use(express.static('../client', options));
+app.use(express.static('client', options));
 
 // for main pages
 // var main = require('./main');
