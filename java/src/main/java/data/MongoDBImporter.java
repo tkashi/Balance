@@ -22,7 +22,7 @@ import org.bson.Document;
 public class MongoDBImporter {
 
     private static String HOST_NAME = "localhost";
-    private static String DB_NAME = "balance";
+    private static String DB_NAME = "test";
 
     private static MongoClient mongoClient;
     private static MongoDatabase database;
