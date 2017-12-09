@@ -61,6 +61,7 @@
     h5.settings.res.baseUrl = 'js/';
 
     var consts = balance.common.consts;
+    var utils = balance.common.utils;
     
     var pageController = {
         __name: 'balance.PageController',

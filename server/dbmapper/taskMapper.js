@@ -1,15 +1,24 @@
+var utils = require('../common/utils');
 var driver = require('./driverFactory').createDriver();
 var ObjectID = require('mongodb').ObjectID;
+
+function toDate(str) {
+    if (!isNaN(parseInt(str))) {
+        return parseInt(str);
+    }
+    return utils.convertDateToNum(new Date(str));
+//     return new Date(str.split('T')[0].replace('/', '-').replace('/', '-'));
+}
 
 module.exports = {
     find: (query, callback) => {
         var collection = driver.db.collection('task');
         if (query.date) {
             if (typeof query.date === 'string') {
-                query.date = new Date(query.date);
+                query.date = toDate(query.date);
             } else {
                 for (var prop in query.date) {
-                    query.date[prop] = new Date(query.date[prop]);
+                    query.date[prop] = toDate(query.date[prop]);
                 }
             }
         }
@@ -80,6 +89,9 @@ module.exports = {
     },
 
     insert: (doc, callback) => {
+        if (doc.dueDate != null) {
+            doc.dueDate = utils.convertDateTimeToNum(new Date(doc.dueDate));
+        }
         driver.db.collection('task').insert(doc, {
                 w:1,
                 forceServerObjectId: true,

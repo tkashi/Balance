@@ -1,6 +1,8 @@
 (function() {
     "use strict";
 
+    var utils = balance.common.utils; 
+
     var weekViewController = {
         __name: 'balance.overview.WeekViewController',
 
@@ -18,38 +20,36 @@
         },
 
         _showTaskList: function() {
-            var d = new Date();
-            var from = new Date();
-            from.setDate(d.getDate() - d.getDay() + 1); // Monday
-            var to = new Date();
-            to.setDate(d.getDate() - d.getDay() + 7); // Sunday
+            var d = utils.convertDateToNum(new Date());
+            var day = new Date().getDay();
+            var from = d - day + 1; // Monday
+            var to = from + 6; // Sunday
 
             h5.ajax('../task/list', {
                 dataType: 'json',
                 data: {
                     date: {
-                        '$gte': from.toLocaleDateString(),
-                        '$lte': to.toLocaleDateString()                        
+                        '$gte': from,
+                        '$lte': to                       
                     }
                 }
             }).done(res => {
                 var tasks = {};
                 res.forEach(task => {
-                    var taskDate = task.date.split('T')[0];
+                    var taskDate = task.date;
                     if (!tasks[taskDate]) {
                         tasks[taskDate] = [];
                     }
                     tasks[taskDate].push(task);
                 });
                 var $widget = this.$find('.task-widget2 > .row');
-                for (var i = 0; i < 7; i++) {
-                    d.setDate(from.getDate() + i);
+                for (var i = from; i <= to; i++) {
                     var $dayTask = $(this.view.get('week-tasks', {
-                        date: d.toDateString().slice(0, -5)
+                        date: utils.convertNumToDate(i)
                     }));
                     var $listGroup = $dayTask.find('.list-group');
-                    $widget.eq(parseInt((i + 1)/7)).append($dayTask);
-                    this._taskListController.showTaskList(tasks[d.toISOString().split('T')[0]], $listGroup, true);
+                    $widget.eq((i == to ? 1 : 0)).append($dayTask);
+                    this._taskListController.showTaskList(tasks[i], $listGroup, true);
                 }
             });
         },

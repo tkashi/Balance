@@ -1,6 +1,8 @@
 (function() {
     "use strict";
 
+    var utils = balance.common.utils; 
+
     var taskController = {
         __name: 'balance.overview.TaskListController',
 
@@ -23,6 +25,8 @@
         '.add-task click': function(context, $el) {
             context.event.preventDefault();
             var values = this._formController.getValue();
+            values.type = 'incoming';
+            values.dueDate = utils.convertDateToNum(new Date(values.dueDate));
             h5.ajax('../task/register', {
                 type: 'POST',
                 contentType: 'application/json',

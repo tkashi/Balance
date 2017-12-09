@@ -22,7 +22,7 @@ module.exports = function(express) {
         }, req.query);
         dbmapper.find(query, (error, result) => {
             result.sort((a, b) => {
-                return a.dueDateTime > b.dueDateTime ? 1 : -1;
+                return a.dueDateTime - b.dueDateTime;
             });
             res.json(result);
         });
