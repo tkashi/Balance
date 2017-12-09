@@ -1,3 +1,4 @@
+package data;
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -14,7 +15,7 @@ import org.bson.Document;
 
 public class MongoDBExporter {
 
-    private static String HOST_NAME = "ec2-184-72-209-108.compute-1.amazonaws.com";
+    private static String HOST_NAME = "localhost";
     private static String DB_NAME = "balance";
 
     private static MongoClient mongoClient;
