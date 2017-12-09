@@ -59,7 +59,7 @@
     <script type="text/ejs" id="week-tasks">
         <div class="col-sm-2">
             <div class="task-total bl-info">
-                <p class="font-18 m-b-0"><strong>[%= date %]</strong> </p>
+                <p class="font-18 m-b-0"><strong>[%= date.toDateString().slice(0, -5) %]</strong> </p>
             </div>
             <div class="task-list">
                 <ul class="list-group"></ul>
@@ -82,7 +82,7 @@
                         </div>
                         <div class="form-group">
                             <label for="task-subject-id" class="control-label">Assign to Course:</label>
-                            <input name="subjectId" type="text" placeholder="1.125"class="form-control" id="task-subject-id"> 
+                            <input name="userSubjectId" type="text" placeholder="1.125"class="form-control" id="task-subject-id"> 
                         </div>
                         <div class="form-group">
                             <label for="task-duration" class="control-label">Duration:</label>
@@ -308,7 +308,6 @@
                             <ul aria-expanded="false" class="collapse">
                                 <li> <a href="index.html">Today</a> </li>
                                 <li> <a href="week-task.html">Week</a> </li>
-                                <li> <a href="index3.html">Summary</a> </li>
                             </ul>
                         </li>
                         <!-- COURSES -->
@@ -330,25 +329,13 @@
                                 <li><a href="task.html" data-type="completed">Completed Tasks</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="calendar.html" aria-expanded="false"><i class="icon-calender fa-fw"></i> <span class="hide-menu">Calendar</span></a>
-                        </li>
                         <!-- ANALITICS -->
-                        <li>
-                            <a class="waves-effect" aria-expanded="false"><i class="icon-pie-chart fa-fw"></i> <span class="hide-menu"> Analytics</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="bperformance.html">Performance</a></li>
-                                
-                            </ul>
-                        </li>
                         <!-- CONFIGURATION -->
                         <li>
                             <a  class="waves-effect" aria-expanded="false"><i class="icon-settings fa-fw"></i> <span class="hide-menu"> Configuration </span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="baccount-config.html">Account</a></li>
-                                <li> <a href="course-config.html">Course Configuration</a> </li>
-                                <li><a href="bschedule-config.html">Scheduling</a></li>
-                                
+                                <li> <a href="course-config.html">Course Configuration</a> </li>                                
                             </ul>
                         </li>
                     </ul>
@@ -358,7 +345,6 @@
                 <div class="p-30">
                     <span class="hide-menu">
                         <a target="_blank" class="btn btn-success">Create Schedule</a>
-                        <a target="_blank" class="btn btn-default m-t-15">Check Documentation</a>
                     </span>
                 </div>                
             </div>
@@ -457,9 +443,6 @@
                                         <div class="task-list">
                                             <ul class="list-group">
                                             </ul>
-                                        </div>
-                                        <div class="task-loadmore">
-                                            <a class="btn btn-default btn-outline btn-rounded">Load More</a>
                                         </div>
                                     </div>
                                 </div>

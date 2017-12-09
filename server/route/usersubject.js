@@ -1,4 +1,5 @@
 var consts = require('../common/consts');
+var utils = require('../common/utils');
 var dbmapper = require('../dbmapper/userSubjectMapper');
 var taskMapper = require('../dbmapper/taskMapper');
 var commonSubject = require('../common/subject');
@@ -40,6 +41,10 @@ function getHour(time) {
 }
 
 function registerTask(type, s) {
+    if (!s[type]) {
+        return;
+    }
+    
     var days = s[type].day.split('');
     var diffOfDays = days.map(day => {
         var diffOfDay = DAY_MAP[day] - consts.CURRENT_TERM_FROM.getDay();
@@ -51,17 +56,17 @@ function registerTask(type, s) {
 
     diffOfDays.sort();
 
-
     var label = type == 'lecture' ? 'Lecture' : 'Recitation';
-    var today = new Date();
+    var today = utils.convertDateToNum(new Date());
     diffOfDays.forEach((diff, index) => {
-        var date = new Date(consts.CURRENT_TERM_FROM);
-        date.setDate(date.getDate() + diff);
+        var date = utils.convertDateToNum(consts.CURRENT_TERM_FROM);
+        date += diff;
 
         var count = index + 1;
-        while (date <= consts.CURRENT_TERM_TO) {
-            var dateStr = date.toISOString().split('T')[0];
-            var dueDateTime = new Date(dateStr + ' ' + s[type].endTime);
+        var toDate = utils.convertDateToNum(consts.CURRENT_TERM_TO);
+        while (date <= toDate) {
+            var dateStr = utils.convertNumToDate(date).toISOString().split('T')[0];
+            var dueDateTime = utils.convertDateTimeToNum(new Date(dateStr + ' ' + s[type].endTime));
             if (holidays.indexOf(dateStr) == -1) {
                 taskMapper.insert({
                     userId: s.userId,
@@ -78,7 +83,7 @@ function registerTask(type, s) {
                     category: 'Lecture'
                 });    
             }
-            date.setDate(date.getDate() + 7);
+            date += 7;
             count += days.length;           
         }
     });
