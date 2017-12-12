@@ -75,4 +75,12 @@ public class MongoDBClient {
 	    }
 	    return ret;
     }
+
+	public void updateTasks(List<Task> taskList) {
+        MongoCollection<Document> collection = database.getCollection("task");
+        for (Task t: taskList) {
+            collection.updateOne(eq("_id", t.getId()), new Document("$set", new Document("date", t.getTaskDay())));        	
+        }
+		
+	}
 }
