@@ -118,7 +118,7 @@ public class Heuristic {
   /**Add information about the daily priority for the planning horizon
    Receives a long array with a length of "p+1"*/
   
-  public void addDayInfo(long [] avail){
+  public void addDayInfo(int[] avail){
       long cum = 0;
       for(int i=1; i<=this.planHorizon;i++){
             this.dailyAvail[i]=avail[i];

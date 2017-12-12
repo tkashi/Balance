@@ -54,17 +54,19 @@ public class Schedule {
         h.printTaskList();
         
         //Add Availability per day
-        long [] avail = new long[]{0,8,8,8,8,8,8,8};
+        int studyHours = 8;
+                
+        int [] avail = new int[PLAN_HORIZON + 1];
+        int[] totalOurs = client.readTotalHoursPerDate(1, PLAN_HORIZON);  // new long[]{0,8,8,8,8,8,8,8};
+        for (int i = 1; i <= PLAN_HORIZON; i++) {
+        		avail[i] = studyHours - totalOurs[i];
+        }
         h.addDayInfo(avail);
-        
-        h.addDayInfo(avail);
-        
         
         //Add Days of Execution
         h.assignTaskDates();
         h.greedyHeuristic();
-        h.printPlanningHorizon();
-        
+        h.printPlanningHorizon();   
     }
     
 }
