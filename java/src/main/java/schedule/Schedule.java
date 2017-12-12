@@ -66,7 +66,9 @@ public class Schedule {
         //Add Days of Execution
         h.assignTaskDates();
         h.greedyHeuristic();
-        h.printPlanningHorizon();   
+        h.printPlanningHorizon();
+        
+        client.updateTasks(h.getTaskList());
     }
     
 }
