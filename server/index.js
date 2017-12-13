@@ -23,6 +23,7 @@ app.use(express.static('client', options));
 app.use('/task', require('./route/task')(express));
 app.use('/usersubject', require('./route/usersubject')(express));
 app.use('/subject', require('./route/subject')(express));
+app.use('/schedule', require('./route/schedule')(express));
 
 console.log('server has started');
 
