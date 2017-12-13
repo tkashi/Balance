@@ -57,7 +57,7 @@ public class Schedule {
         int studyHours = 8;
                 
         int [] avail = new int[PLAN_HORIZON + 1];
-        int[] totalOurs = client.readTotalHoursPerDate(1, PLAN_HORIZON);  // new long[]{0,8,8,8,8,8,8,8};
+        int[] totalOurs = client.readTotalHoursPerDate(PLAN_HORIZON);  // new long[]{0,8,8,8,8,8,8,8};
         for (int i = 1; i <= PLAN_HORIZON; i++) {
         		avail[i] = studyHours - totalOurs[i];
         }

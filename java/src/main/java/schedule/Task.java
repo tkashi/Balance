@@ -12,9 +12,9 @@ package schedule;
 public class Task {
     
     // atributes
-  private int id;
+  private String id;
   private long duration;
-  private long dueDate;
+  private double dueDate;
   private int urgency;
   private int importance;
   private int priority;
@@ -22,7 +22,7 @@ public class Task {
   private int taskDay;
   
   //constructor
-  public Task(int id2, int duration2, int dueDate2, int urgency2, int importance2){
+  public Task(String id2, int duration2, double dueDate2, int urgency2, int importance2){
   
   this.id=id2;
   this.duration=duration2;
@@ -54,7 +54,7 @@ public class Task {
   
   //Set and Gets Methods
   
-    public int getId(){
+    public String getId(){
       return this.id;
     }
 
@@ -62,7 +62,7 @@ public class Task {
       return this.duration;
     }
 
-    public long getDueDate(){
+    public double getDueDate(){
       return this.dueDate;
     }
 
@@ -82,7 +82,7 @@ public class Task {
       return this.taskDay;
     }
    
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
         this.modify=true;
     }
@@ -92,7 +92,7 @@ public class Task {
         this.modify=true;
     }
 
-    public void setDueDate(int dueDate) {
+    public void setDueDate(double dueDate) {
         this.dueDate = dueDate;
         this.modify=true;
     }
