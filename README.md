@@ -12,4 +12,8 @@ Balance Application to manage your schedule at MIT
 3. access http://localhost:3000/index.html
 
 # How to Use Sample Data
-TBD
+1. open terminal
+2. move balance/data folder
+3. execute the below command to import data for each collection ({collection} = task, subject, user or usersubject)
+
+    mongoimport --db balance -c {collection} {collection}.json
