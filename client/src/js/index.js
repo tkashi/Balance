@@ -81,6 +81,13 @@
             });
         },
 
+        '.create-schedule click': function() {
+            h5.ajax('../schedule/create').done(res => {
+                // alert(res.code);
+                alert('Tasks are allocated');
+            });
+        },
+
         '.page-wrapper updateSubjects': function() {
             this._updateSubjectMenu();
         },
