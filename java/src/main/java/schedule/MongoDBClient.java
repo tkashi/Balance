@@ -68,7 +68,7 @@ public class MongoDBClient {
 		int today = getToday();
 
 		int duration = doc.get("duration") != null ? (Integer)doc.get("duration") : -1;
-		double dueDateTime = doc.get("dueDateTime") != null ? (Double)doc.get("dueDateTime") - today: -1;
+		int dueDateTime = doc.get("dueDateTime") != null ? (Integer)doc.get("dueDateTime") - today: -1;
 		int urgency = doc.get("urgency") != null ? (Integer)doc.get("urgency") : 0;
 		int importance = doc.get("importance") != null ? (Integer)doc.get("importance") : 0;
     	
@@ -95,7 +95,7 @@ public class MongoDBClient {
 	    for (int i = 1; i <= planHorizon; i++) {
 	    		int d = today + i;	    		
 	    	    for (Document doc: cursor) {
-	    	    		if (doc.getInteger("_id").intValue() == d) {
+	    	    		if (doc.getLong("_id").intValue() == d) {
 	    	    			ret[i] = doc.getInteger("duration");
 	    	    		}
 		    }
